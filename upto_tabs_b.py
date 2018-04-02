@@ -1,5 +1,6 @@
 import os
 import wx
+import math
 import wx.lib.agw.multidirdialog as MDD
 import wx.lib.scrolledpanel as scrolled
 import wx.lib.mixins.gridlabelrenderer as glr
@@ -415,54 +416,76 @@ class TabOne(wx.Panel):
         k1 = 0.085
         k2 = 1.99
         troubleshoot = 1
-
-        MSL = ["None"] * 1800
-        inorg = ["None"] * 600
-        sorg = ["None"] * 600
-        MHW= ["None"] * 1800
-        bio= ["None"] * 1800
-        OMmat= ["None"] * 1800
-        MHWs= ["None"] * 1800
-        marshelev= ["None"] * 1800
-        D= ["None"] * 1800
-        T = ["None"] * 1800
-        IT = ["None"] * 100
-        ybio = ["None"] * 100
-        a= ["None"] * 10
-        b= ["None"] * 10
-        c= ["None"] * 10
-        aleft= ["None"] * 10
-        bleft= ["None"] * 10
-        cleft= ["None"] * 10
-        aright= ["None"] * 10
-        bright= ["None"] * 10
-        cright = ["None"] * 10
-        dzdd = ["None"] * 1800
-        dref = ["None"] * 1800
-        dlab = ["None"] * 1800
-        ddcay = ["None"] * 1800
-        bulkd = ["None"] * 1800
-        sedi = ["None"] * 1800
-        droot = ["None"] * 1800
+        BGB = [0] * 1800
+        SedD = [0] * 1800
+        lbgb = [0] * 1800
+        dzdt = [0] * 1800
+        MSL = [0] * 1800
+        inorg = [0] * 600
+        sorg = [0] * 600
+        soildepth = [0] * 700
+        MHW= [0] * 1800
+        MHWs = [0] * 1800
+        bio= [0] * 1800
+        SOM = [0] * 1800
+        cquest = [0] * 600
+        cmat = [0] * 600
+        OMmat= [0] * 1800
+        decay = [0] * 1800
+        MHWs= [0] * 1800
+        marshelev= [0] * 1800
+        D= [0] * 1800
+        T = [0] * 1800
+        IT = [0] * 1800
+        ybio = [0] * 1800
+        a= [0] * 10
+        b= [0] * 10
+        c= [0] * 10
+        aleft= [0] * 10
+        bleft= [0] * 10
+        cleft= [0] * 10
+        aright= [0] * 10
+        bright= [0] * 10
+        cright = [0] * 10
+        dzdd = [0] * 1800
+        dref = [0] * 1800
+        dlab = [0] * 1800
+        ddcay = [0] * 1800
+        bulkd = [0] * 1800
+        sedi = [0] * 1800
+        droot = [0] * 1800
+        totdepth = [0] * 1800
+        totBGB = [0] * 1800
+        dreftot = [0] * 600
+        sorg = [0] * 600
+        corelbg = [0] * 141
+        coretbg = [0] * 141
+        coretin = [0] * 141
+        coresom = [0] * 141
+        bins = [["" for x in range(405)] for y in range(405)]
+        bincounts = [0] * 405
+        cohortbins = [0] * 405
         #marshelev=[100]
 
         ## declaring the needed 2d values in python
+        w, h = 26, 1000
+        data_list = [["" for x in range(w)] for y in range(h)]
         comp_list = [["" for x in range(w)] for y in range(h)]
-        rootdist_list = [["" for x in range(20)] for y in range(10)]
-        sheet12_list = [["" for x in range(550)] for y in range(20)]
-        sheet10_list = [["" for x in range(550)] for y in range(20)]
-        num_output_list = [["" for x in range(2000)] for y in range(20)]
+        rootdist_list = [["" for x in range(20)] for y in range(200)]
+        sheet12_list = [["" for x in range(50)] for y in range(550)]
+        sheet10_list = [["" for x in range(1000)] for y in range(1000)]
+        num_output_list = [["" for x in range(2000)] for y in range(2000)]
 
         clslr = float(phy_sea_level_forecast.GetValue())
         MSL0 = float(phy_sea_level_start.GetValue())
         SLR100 = float(phy_20th.GetValue())
         RUNL = 100
-        jlmsl = MSL0
+        j_msl = MSL0
         bsea = (clslr / RUNL - SLR100) / (RUNL - 1)
         asea = SLR100 - bsea
 
         Tamp = float(phy_MTA.GetValue())
-        marshelev[1] = float(phy_Marsh_ele.GetValue()) - (MSL0 - jlmsl)
+        marshelev[1] = float(phy_Marsh_ele.GetValue()) - (MSL0 - j_msl)
         MHW0 = MSL0 + Tamp
         Trange = 2 * Tamp
         mtsi0 = float(phy_sus_minSed.GetValue())
@@ -548,7 +571,7 @@ class TabOne(wx.Panel):
         print D[1]'''
         bio[1] = (a[1] * D[1] + b[1] * (D[1]*D[1]) + c[1]) * bscale
         print "-------"
-        print bio[1]
+        #print bio[1]
         if bio[1] < 0:
             bio[1] = 0
         Indtime = min(1, D[1] / Trange)
@@ -613,11 +636,11 @@ class TabOne(wx.Panel):
                 kr = krBGTR / BGTR
                 BGTR = min(3, BGTR)
                 model_refrac.SetLabel(str(kr))
-                print sorg[1] / k1
+                '''print sorg[1] / k1
                 print RT / k1
                 print inorg[1] / k2
                 print sorg[1] / k1
-                print RT / k1
+                print RT / k1'''
                 #BRZOM = 90 * (sorg[1] / k1 + krBGTR * RT / k1) /   (inorg[1] / k2 + sorg[1] / k1 + krBGTR * RT / k1)
                 cohort_size = inorg[1] / k2 + sorg[1] / k1 + krBGTR * RT / k1
                 phy_lt.SetLabel(str(round(cohort_size, 2)))
@@ -666,9 +689,9 @@ class TabOne(wx.Panel):
                 2: 'output for case 2',
                 3: 'output for case 3'
             }.get(Scenario, 'default case')'''
-        print "-------"
+        '''print "-------"
         print(j)
-        print "-------"
+        print "-------"'''
         if Scenario == 1: #this is the case where the surface is out of the water and above the growth zone
             for ico in (1, nocohort):
                 inorg[1] = 0
@@ -702,7 +725,7 @@ class TabOne(wx.Panel):
             Top = Drmax - tdz
             for ico in reversed(range(1, nocohort)):
                 lstref = dref[500]
-            if troubleshoot:
+            if troubleshoot==1:
                 sheet12_list[1][9] = soildepth[500]
                 sheet12_list[1][10] = OMmat[500]
                 sheet12_list[1][11] = BGB[500]
@@ -736,7 +759,7 @@ class TabOne(wx.Panel):
                 lstref = dref[ico]
                 lstlab = dlab[ico]
             ico = 1
-            if troubleshoot:
+            if troubleshoot==1:
                 ik = 2
                 for ico in reversed(range(1, nocohort+1)):
                     sheet12_list[ik][9] = soildepth[ico]
@@ -761,7 +784,7 @@ class TabOne(wx.Panel):
                 decay[500] = -dlab[500] * omdr  # total decay in cohort 1 in 1 year
                 dlab[500] = dlab[500] - decay[500]
                 dref[500] = (krBGTR * droot[500]) + sorg[1]
-                tdz = max((dref(ico) + sorg[1]) / k1, (droot[500] + dlab[500] + dref[500]) / k1 + minwt / k2)  # dzm is the mineral fraction and does not change
+                tdz = max((dref[ico] + sorg[1]) / k1, (droot[500] + dlab[500] + dref[500]) / k1 + minwt / k2)  # dzm is the mineral fraction and does not change
                 dzdd[500] = tdz
                 Bot = Drmax - tdz
                 if abs(tdz - tdzl) < 0.000001:
@@ -774,15 +797,15 @@ class TabOne(wx.Panel):
             bulkd[500] = 1 / (0.01 * OMmat[500] / k1 + (1 - 0.01 * OMmat[500]) / k2)
             Top = Drmax - tdz
             Bot = Top - tdz
-            if troubleshoot:
-                sheet12_list[1, 9] = soildepth[500]
-                sheet12_list[1, 10] = OMmat[500]
-                sheet12_list[1, 11] = BGB[500]
-                sheet12_list[1, 12] = sedi[500]
-                sheet12_list[1, 13] = dref[500]
-                sheet12_list[1, 14] = droot[500]
-                sheet12_list[1, 15] = dlab[500]
-                sheet12_list[1, 16] = dzdd[500]
+            if troubleshoot==1:
+                sheet12_list[1][ 9] = soildepth[500]
+                sheet12_list[1][10] = OMmat[500]
+                sheet12_list[1][ 11] = BGB[500]
+                sheet12_list[1][ 12] = sedi[500]
+                sheet12_list[1][ 13] = dref[500]
+                sheet12_list[1][ 14] = droot[500]
+                sheet12_list[1][ 15] = dlab[500]
+                sheet12_list[1][ 16] = dzdd[500]
             for ico in reversed(range(1, nocohort)):
                 lstroot = droot[ico + 1]
                 lstref = 0.5 * (Rmax / Drmax) * ((Drmax * Drmax) - (Top * Top)) * krBGTR + sorg[1]
@@ -806,6 +829,8 @@ class TabOne(wx.Panel):
                     tdzl = tdz
                 soildepth[ico] = dzdd[ico]
                 BGB[ico] = dref[ico] + dlab[ico] + droot[ico]
+                print sedi[ico]
+                print BGB[ico]
                 OMmat[ico] = 90 * BGB[ico] / (sedi[ico] + BGB[ico])
                 bulkd[ico] = 1 / (0.01 * OMmat[ico] / k1 + (1 - 0.01 * OMmat[ico]) / k2)
                 dzdd[ico] = tdz
@@ -813,7 +838,7 @@ class TabOne(wx.Panel):
                 Top = Top - dzdd[ico]
                 Bot = Top - tdz
             ico = 1
-            if troubleshoot:
+            if troubleshoot==1:
                 ik = 2
             for ico in reversed(range(1, nocohort+1)):
                     sheet12_list[ik][9] = soildepth[ico]
@@ -865,84 +890,85 @@ class TabOne(wx.Panel):
                     d2 = D1 + dzdd[ico]
                 D1 = D1+dzdd[ico]
         inorg[1] = sedload  # annual sediment load [g cm-2 yr-1]
-        sheet10_list[0, 1] = "cohort"
-        sheet10_list[0, 2] = "depth"
-        sheet10_list[0, 3] = "sedload"
-        sheet10_list[0, 4] = "droot"
-        sheet10_list[0, 5] = "dref"
-        sheet10_list[0, 6] = "dlab"
-        sheet10_list[0, 7] = "bulkd"
-        sheet10_list[0, 8] = "%OMmat"
-        sheet10_list[0, 9] = "decay"
+        sheet10_list[0][ 1] = "cohort"
+        sheet10_list[0][ 2] = "depth"
+        sheet10_list[0][ 3] = "sedload"
+        sheet10_list[0][ 4] = "droot"
+        sheet10_list[0][ 5] = "dref"
+        sheet10_list[0][ 6] = "dlab"
+        sheet10_list[0][ 7] = "bulkd"
+        sheet10_list[0][ 8] = "%OMmat"
+        sheet10_list[0][ 9] = "decay"
 
         k = 0
         dztot = 0
         for ico in reversed(range(1, nocohort+1)):
             k = 502 - ico
             dztot = dztot + dzdd[ico]
-            sheet10_list[k, 1] = ico
-            sheet10_list[k, 2] = dztot  # this is depth
-            sheet10_list[k, 3] = sedload
-            sheet10_list[k, 4] = droot[ico] * 1000  # output mg/cm2
-            sheet10_list[k, 5] = dref[ico] * 1000
-            sheet10_list[k, 6] = dlab[ico] * 1000
-            sheet10_list[k, 7] = bulkd[ico]
-            sheet10_list[k, 8] = OMmat[ico]
-            sheet10_list[k, 9] = decay[ico] * 1000
+            #print k
+            sheet10_list[k][ 1] = ico
+            sheet10_list[k][ 2] = dztot  # this is depth
+            sheet10_list[k][ 3] = sedload
+            sheet10_list[k][ 4] = droot[ico] * 1000  # output mg/cm2
+            sheet10_list[k][ 5] = dref[ico] * 1000
+            sheet10_list[k][ 6] = dlab[ico] * 1000
+            sheet10_list[k][ 7] = bulkd[ico]
+            sheet10_list[k][ 8] = OMmat[ico]
+            sheet10_list[k][ 9] = decay[ico] * 1000
         tlbgbio = 0
         totsom = 0
         totdepth[1] = 0
         tlabbio0 = 0
         for k in range(3, 1801):
-            num_output_list[k, 2] = ""
-            num_output_list[k, 3] = ""
-            num_output_list[k, 4] = ""
-            num_output_list[k, 5] = ""
-            num_output_list[k, 6] = ""
-            num_output_list[k, 7] = ""
-            num_output_list[k, 8] = ""
-            num_output_list[k, 9] = ""
-            num_output_list[k, 10] = ""
-            num_output_list[k, 11] = ""
-            num_output_list[k, 12] = ""
-            num_output_list[k, 13] = ""
-            num_output_list[k, 14] = ""
-            num_output_list[k, 15] = ""
-            num_output_list[k, 16] = ""
-            num_output_list[k, 17] = ""
-            num_output_list[k, 18] = ""
-            num_output_list[k, 19] = ""
-            num_output_list[k, 20] = ""
+            num_output_list[k][ 2] = ""
+            num_output_list[k][ 3] = ""
+            num_output_list[k][ 4] = ""
+            num_output_list[k][ 5] = ""
+            num_output_list[k][ 6] = ""
+            num_output_list[k][ 7] = ""
+            num_output_list[k][ 8] = ""
+            num_output_list[k][ 9] = ""
+            num_output_list[k][ 10] = ""
+            num_output_list[k][ 11] = ""
+            num_output_list[k][ 12] = ""
+            num_output_list[k][ 13] = ""
+            num_output_list[k][ 14] = ""
+            num_output_list[k][ 15] = ""
+            num_output_list[k][ 16] = ""
+            num_output_list[k][ 17] = ""
+            num_output_list[k][ 18] = ""
+            num_output_list[k][ 19] = ""
+            num_output_list[k][ 20] = ""
         kk = 2
         for ico in reversed(range(1, 501)):
             tlbgbio = tlbgbio + droot[ico]
             totsom = totsom + BGB[ico]
             totdepth[1] = totdepth[1] + dzdd[ico]
             kk = kk + 1
-            num_output_list[kk, 5] = round(dzdd[ico], 4)
-            num_output_list[kk, 6] = totdepth[1]
-            num_output_list[kk, 7] = droot[ico] * 10000  # g/m2
-            num_output_list[kk, 8] = dlab[ico] * 10000
-            num_output_list[kk, 9] = dref[ico] * 10000
-            num_output_list[kk, 10] = BGB[ico] * 10000
-            num_output_list[kk, 11] = OMmat[ico]
-            num_output_list[kk, 12] = sedi[ico]
-            num_output_list[kk, 13] = bulkd[ico]
+            num_output_list[kk][ 5] = round(dzdd[ico], 4)
+            num_output_list[kk][ 6] = totdepth[1]
+            num_output_list[kk][ 7] = droot[ico] * 10000  # g/m2
+            num_output_list[kk][ 8] = dlab[ico] * 10000
+            num_output_list[kk][ 9] = dref[ico] * 10000
+            num_output_list[kk][ 10] = BGB[ico] * 10000
+            num_output_list[kk][ 11] = OMmat[ico]
+            num_output_list[kk][ 12] = sedi[ico]
+            num_output_list[kk][ 13] = bulkd[ico]
             if dzdd[ico] > 0:
-                num_output_list[kk, 14] = droot[ico] * 1000 / dzdd[ico]
-                num_output_list[kk, 15] = decay[ico] * 10000
+                num_output_list[kk][14] = droot[ico] * 1000 / dzdd[ico]
+                num_output_list[kk][ 15] = decay[ico] * 10000
         for k in range(3, 501):
-            num_output_list[k, 16] = ""
-            num_output_list[k, 17] = ""
-            num_output_list[k, 18] = ""
-            num_output_list[k, 19] = ""
-            num_output_list[k, 20] = ""
+            num_output_list[k][ 16] = ""
+            num_output_list[k][ 17] = ""
+            num_output_list[k][ 18] = ""
+            num_output_list[k][ 19] = ""
+            num_output_list[k][ 20] = ""
 
         bin = 0
         for i in range(1,41):
             bincounts[i] = 0
             for j in range(1, 401):
-                bins[i, j] = 0
+                bins[i][ j] = 0
         for i in range(1,141):
             corelbg[i] = 0
             coretbg[i] = 0
@@ -955,16 +981,16 @@ class TabOne(wx.Panel):
             tprop = 0
             for j in range(1, 401):
                 jlast = jlast + 1
-                cohortTop = Sheet4.Cells(j + 2, 6)
+                cohortTop = num_output_list[j + 2][ 6]
                 if cohortTop > Top:
                     break
                 prop = (cohortTop - cohortBot) / 2.5
                 tprop = tprop + prop
                 cohortBot = cohortTop
                 #If bins(i, j) = 1 Then
-                corelbg[i] = corelbg[i] + num_output_list[j + 2, 7] * prop# add lbg
-                coretbg[i] = coretbg[i] + num_output_list[j + 2, 10] * prop
-                coretin[i] = coretin[i] + num_output_list[j + 2, 12] * prop
+                corelbg[i] = corelbg[i] + num_output_list[j + 2][7] * prop# add lbg
+                coretbg[i] = coretbg[i] + num_output_list[j + 2][ 10] * prop
+                coretin[i] = coretin[i] + num_output_list[j + 2][ 12] * prop
             jlast = jlast - 1
             cohortBot = Top
             Top = Top + 2.5
@@ -974,42 +1000,42 @@ class TabOne(wx.Panel):
         for i in range(1, 41):
             if i * 2.5 > 100:
                 break
-        num_output_list[k, 16] = i * 2.5
-        num_output_list[k, 17] = corelbg[i]
-        num_output_list[k, 18] = coretbg[i]
-        num_output_list[k, 19] = 10000 * coretin[i]
+        num_output_list[k][ 16] = i * 2.5
+        num_output_list[k][ 17] = corelbg[i]
+        num_output_list[k][ 18] = coretbg[i]
+        num_output_list[k][ 19] = 10000 * coretin[i]
         if coretbg[i] + coretin[i] > 0:
             num_output_list[k, 20] = 90 * coretbg[i] / (coretbg[i] + 10000 * coretin[i])
         k = k + 1
         for k in range(2,501):
-            comp_list[k, 1] = " "
-            comp_list[k, 2] = " "
-            comp_list[k, 3] = " "
-            comp_list[k, 4] = " "
-            comp_list[k, 5] = " "
-            comp_list[k, 6] = " "
-            comp_list[k, 7] = " "
-            comp_list[k, 8] = " "
-            comp_list[k, 9] = " "
-            comp_list[k, 10] = " "
-            comp_list[k, 11] = " "
-            comp_list[k, 12] = " "
-            comp_list[k, 13] = " "
-            comp_list[k, 14] = " "
-            comp_list[k, 15] = " "
-            comp_list[k, 16] = " "
-            comp_list[k, 19] = " "
-            comp_list[k, 20] = " "
-            comp_list[k, 21] = " "
-            comp_list[k, 22] = " "
-            comp_list[k, 23] = " "
+            comp_list[k][1] = " "
+            comp_list[k][2] = " "
+            comp_list[k][3] = " "
+            comp_list[k][4] = " "
+            comp_list[k][5] = " "
+            comp_list[k][6] = " "
+            comp_list[k][7] = " "
+            comp_list[k][8] = " "
+            comp_list[k][9] = " "
+            comp_list[k][10] = " "
+            comp_list[k][11] = " "
+            comp_list[k][12] = " "
+            comp_list[k][13] = " "
+            comp_list[k][14] = " "
+            comp_list[k][15] = " "
+            comp_list[k][16] = " "
+            comp_list[k][19] = " "
+            comp_list[k][20] = " "
+            comp_list[k][21] = " "
+            comp_list[k][22] = " "
+            comp_list[k][23] = " "
         irecov = 1
         mtsi = mtsi0
         jt = 5
         thintime = float(epi_years.GetValue())
         for jtime in range(1,101):
             deadbymove = 0
-            MSL[jtime] = j1msl + asea * jtime + bsea * (jtime * jtime)
+            MSL[jtime] = j_msl + asea * jtime + bsea * (jtime * jtime)
             MHW[jtime] = Tamp + MSL[jtime] + lna * math.sin(2 * 3.14159265 * jtime / 18.6 + p)
             D[jtime] = MHW[jtime] - marshelev[jtime]
             if cb2.GetValue() is True and jtime == thintime:
@@ -1117,15 +1143,15 @@ class TabOne(wx.Panel):
             # cquest[jtime] = cquest[jtime] + dref[nocohort]
             # deadbymove = delroot
             # ico is the cohort number starting with nocohort at the top of the stack
-            if troubleshoot:
-                sheet12_list[1, 1] = soildepth[nocohort]
-                sheet12_list[1, 2] = OMmat[nocohort]
-                sheet12_list[1, 3] = BGB[nocohort]
-                sheet12_list[1, 4] = sedi[nocohort]
-                sheet12_list[1, 5] = dref[nocohort]
-                sheet12_list[1, 6] = droot[nocohort]
-                sheet12_list[1, 7] = dlab[nocohort]
-                sheet12_list[1, 8] = dzdd[nocohort]
+            if troubleshoot==1:
+                sheet12_list[1][1] = soildepth[nocohort]
+                sheet12_list[1][2] = OMmat[nocohort]
+                sheet12_list[1][3] = BGB[nocohort]
+                sheet12_list[1][4] = sedi[nocohort]
+                sheet12_list[1][5] = dref[nocohort]
+                sheet12_list[1][6] = droot[nocohort]
+                sheet12_list[1][7] = dlab[nocohort]
+                sheet12_list[1][8] = dzdd[nocohort]
             Top = Drmax - tdz  # the top of the next cohort
             for ico in reversed(range(1, nocohort )):
                 Bot = Top - dzdd[ico]  # bottom of the next cohort
@@ -1136,9 +1162,9 @@ class TabOne(wx.Panel):
                 # Bot = Top - tdz # subtract the mineral dimension
                 for kk in range(1, 51):
                     # WR to the cohorts, the top cohort is at elevation Drmax relative to root dist
-                    rsection = 0.5 * (Rmax / Drmax) * (Top ^ 2 - Bot ^ 2)  # area under the tdz segment
+                    rsection = 0.5 * (Rmax / Drmax) * ((Top*Top) - (Bot *Bot))  # area under the tdz segment
                     if Top < 0:
-                        rsection = 0.5 * (Rmax / Drmax) * (Top ^ 2)  # area under the tdz segment
+                        rsection = 0.5 * (Rmax / Drmax) * (Top*Top)  # area under the tdz segment
                     if Bot < 0:
                         rsection = 0
 
@@ -1163,22 +1189,22 @@ class TabOne(wx.Panel):
                 bulkd[ico] = 1 / (0.01 * OMmat[ico] / k1 + (1 - 0.01 * OMmat[ico]) / k2)
                 dzdd[ico] = tdz
                 Top = Bot
-            if troubleshoot:
+            if troubleshoot==1:
                 ik=2
                 for ico in reversed(range(400, nocohort+1)):
-                    sheet12_list[ik, 1] = soildepth[ico]
-                    sheet12_list[ik, 2] = OMmat[ico]
-                    sheet12_list[ik, 3] = BGB[ico]
-                    sheet12_list[ik, 4] = sedi[ico]
-                    sheet12_list[ik, 5] = dref[ico]
-                    sheet12_list[ik, 6] = droot[ico]
-                    sheet12_list[ik, 7] = dlab[ico]
-                    sheet12_list[ik, 8] = dzdd[ico]
+                    sheet12_list[ik][1] = soildepth[ico]
+                    sheet12_list[ik][2] = OMmat[ico]
+                    sheet12_list[ik][3] = BGB[ico]
+                    sheet12_list[ik][4] = sedi[ico]
+                    sheet12_list[ik][5] = dref[ico]
+                    sheet12_list[ik][6] = droot[ico]
+                    sheet12_list[ik][7] = dlab[ico]
+                    sheet12_list[ik][8] = dzdd[ico]
                     ik = ik + 1
             if cb4.GetValue()==True:
                 cquest[jtime] = cquest[jtime] + kr * deadbymove
             jt = jt + 5
-            comp_list[jtime + 1, 11] = OMmat[nocohort - 50]
+            comp_list[jtime + 1][ 11] = OMmat[nocohort - 50]
             # Sheet12.Cells[jtime + 1, 7] = deadbymove * 10000
             BDL = bulkd[ico]
 
@@ -1199,35 +1225,35 @@ class TabOne(wx.Panel):
             if cb2.GetValue() == True and jtime == thintime + recovtime:
                 thintime = thintime + Cells(37, 2)# next thin layer appl
             k = jtime + 1
-            comp_list[k, 1] = jtime
-            comp_list[k, 2] = MHW[jtime]
-            comp_list[k, 3] = dzdt[jtime]
-            comp_list[k, 4] = bio[jtime] * 10000
-            comp_list[k, 5] = round(IT[jtime], 2)
-            comp_list[k, 6] = sorg[jtime]
-            comp_list[k, 8] = round(cquest[jtime] * 0.42 * 10000, 2)
-            comp_list[k, 9] = sorg[jtime]
-            comp_list[k, 10] = totBGB[jtime]
-            comp_list[k, 12] = MSL[jtime]
-            comp_list[k, 13] = inorg[jtime]
+            comp_list[k][1] = jtime
+            comp_list[k][2] = MHW[jtime]
+            comp_list[k][3] = dzdt[jtime]
+            comp_list[k][4] = bio[jtime] * 10000
+            comp_list[k][5] = round(IT[jtime],2)
+            comp_list[k][6] = sorg[jtime]
+            comp_list[k][8] = round(cquest[jtime] * 0.42 * 10000,2)
+            comp_list[k][9] = sorg[jtime]
+            comp_list[k][10] = totBGB[jtime]
+            comp_list[k][12] = MSL[jtime]
+            comp_list[k][13] = inorg[jtime]
             if jtime == 1:
-                comp_list[k, 14] = MSL[jtime] - MSL0
+                comp_list[k][ 14] = MSL[jtime] - MSL0
             else:
-                comp_list[k, 14] = MSL[jtime] - MSL[jtime - 1]
-            comp_list[k, 15] = round(marshelev[jtime], 2)
-            comp_list[k, 16] = round(totdepth[jtime], 2)
-            comp_list[k, 19] = round(lbgb[jtime], 2)
-            comp_list[k, 20] = bulkd(nocohort - 50)
-            comp_list[k, 21] = 10000 * droot[nocohort]
-            comp_list[k, 22] = dzdd[nocohort]
-            comp_list[k, 23] = deadbymove
+                comp_list[k][ 14] = MSL[jtime] - MSL[jtime - 1]
+            comp_list[k][15] = round(marshelev[jtime],2)
+            comp_list[k][16] = round(totdepth[jtime],2)
+            comp_list[k][19] = round(lbgb[jtime],2)
+            comp_list[k][20] = bulkd[nocohort - 50]
+            comp_list[k][21] = 10000 * droot[nocohort]
+            comp_list[k][22] = dzdd[nocohort]
+            comp_list[k][23] = deadbymove
             if jtime == 50:
                 totC50 = 0
-                for j in reversed(range(noncohort-50, nocohort+1)):
+                for j in reversed(range(nocohort-50, nocohort+1)):
                     totC50 = totC50 + 0.42 * BGB[j] * 10000
             if jtime == 100:
                 totC100 = 0
-                for j in reversed(range(noncohort - 50, nocohort + 1)):
+                for j in reversed(range(nocohort - 50, nocohort + 1)):
                     totC100 = totC100 + 0.42 * BGB[j] * 10000
         jtime = jtime - 1
         k = 2
@@ -1248,40 +1274,40 @@ class TabOne(wx.Panel):
         totC100 = totC100 / 50
         acr50 = acr50 / 50
         acr100 = acr100 / 50
-        data_list[25, 9] = round((marshelev[100] - marshelev[50]) / 50, 2)
-        data_list[26, 9] = round(refracC100 / 50, 1)
-        data_list[27, 9] = round(totC100, 1)
-        data_list[29, 9] = round((marshelev[51] - marshelev[1]) / 50, 2)
-        data_list[30, 9] = round(refracC50 / 50, 1)
-        data_list[31, 9] = round(totC50, 1)
+        data_list[25][ 9] = round((marshelev[100] - marshelev[50]) / 50, 2)
+        data_list[26][ 9] = round(refracC100 / 50, 1)
+        data_list[27][ 9] = round(totC100, 1)
+        data_list[29][ 9] = round((marshelev[51] - marshelev[1]) / 50, 2)
+        data_list[30][ 9] = round(refracC50 / 50, 1)
+        data_list[31][ 9] = round(totC50, 1)
         for ico in reversed(range(1, nocohort+1)):
             k = k + 1
             totd = totd + dzdd[ico]
             tlbgbio = tlbgbio + droot[ico]
             totsom = totsom + BGB[ico]
-            num_output_list[k, 5] = round(dzdd[ico], 4)
-            num_output_list[k, 6] = totd
-            num_output_list[k, 7] = droot[ico] * 10000
-            num_output_list[k, 8] = dlab[ico] * 10000
-            num_output_list[k, 9] = dref[ico] * 10000
-            num_output_list[k, 10] = BGB[ico] * 10000
+            num_output_list[k][5] = round(dzdd[ico],4)
+            num_output_list[k][6] = totd
+            num_output_list[k][7] = droot[ico] * 10000
+            num_output_list[k][8] = dlab[ico] * 10000
+            num_output_list[k][9] = dref[ico] * 10000
+            num_output_list[k][10] = BGB[ico] * 10000
             if ico > 550:
                 totC50 = totC50 + 0.42 * BGB[ico] * 10000
-            num_output_list[k, 11] = OMmat[ico]
-            num_output_list[k, 12] = sedi[ico]
-            num_output_list[k, 13] = bulkd[ico]
-            if dzdd(ico) > 0:
-                num_output_list[k, 1] = droot[ico] * 1000 / dzdd[ico]
+            num_output_list[k][ 11] = OMmat[ico]
+            num_output_list[k][ 12] = sedi[ico]
+            num_output_list[k][ 13] = bulkd[ico]
+            if dzdd[ico] > 0:
+                num_output_list[k][ 1] = droot[ico] * 1000 / dzdd[ico]
             else:
-                num_output_list[k, 14] = 0
-            num_output_list[k, 15] = decay[ico] * 10000
+                num_output_list[k][ 14] = 0
+            num_output_list[k][ 15] = decay[ico] * 10000
         for j in range(1,101):
             #'marshelev(j + 1) = marshelev(j) + totdepth(j + 1) - totdepth(j)
-            num_output_list[j + 2, 1] = j
+            num_output_list[j + 2][ 1] = j
             #' years before present
-            num_output_list[2 + j, 2] = MSL[j]
-            num_output_list[2 + j, 3] = round(marshelev[j], 0.01)
-            num_output_list[2 + j, 4] = bio[j] * 10000
+            num_output_list[2 + j][ 2] = MSL[j]
+            num_output_list[2 + j][ 3] = round(marshelev[j], 1)
+            num_output_list[2 + j][ 4] = bio[j] * 10000
         for i in range(1,141):
             corelbg[i] = 0
             #' fill the 2.5 cm bins with zeros
@@ -1297,7 +1323,7 @@ class TabOne(wx.Panel):
             tprop = 0
             for j in range(jlast, 401):
                 jlast = jlast + 1
-                cohortTop = num_output_list[j + 2, 6]
+                cohortTop = num_output_list[j + 2][ 6]
                 if cohortTop > Top:
                     break
                 #'slice = WorksheetFunction.Max(2.5, Top - Bot)
@@ -1305,10 +1331,10 @@ class TabOne(wx.Panel):
                 tprop = tprop + prop
                 cohortBot = cohortTop
                 #'If bins(i, j) = 1 Then
-                corelbg[i] = corelbg[i] + num_output_list[j + 2, 7] * prop
+                corelbg[i] = corelbg[i] + num_output_list[j + 2][ 7] * prop
                 #' add lbg
-                coretbg[i] = coretbg(i) + num_output_list[j + 2, 10] * prop
-                coretin[i] = coretin(i) + num_output_list[j + 2, 12] * prop
+                coretbg[i] = coretbg[i] + num_output_list[j + 2][ 10] * prop
+                coretin[i] = coretin[i] + num_output_list[j + 2][ 12] * prop
 
             jlast = jlast - 1
             cohortBot = Top
@@ -1319,12 +1345,12 @@ class TabOne(wx.Panel):
         for i in range(1, 141):
             if i * 2.5 > 100:
                 break
-            num_output_list[k, 16] = i * 2.5
-            num_output_list[k, 17] = corelbg[i]
-            num_output_list[k, 18] = coretbg[i]
-            num_output_list[k, 19] = 10000 * coretin[i]
+            num_output_list[k][ 16] = i * 2.5
+            num_output_list[k][ 17] = corelbg[i]
+            num_output_list[k][ 18] = coretbg[i]
+            num_output_list[k][ 19] = 10000 * coretin[i]
             if coretin[i] > 0:
-                num_output_list[k, 20] = 90 * coretbg[i] / (coretbg[i] + 10000 * coretin[i])
+                num_output_list[k][ 20] = 90 * coretbg[i] / (coretbg[i] + 10000 * coretin[i])
             k = k + 1
         tlbgbio = 0
         totsom = 0
