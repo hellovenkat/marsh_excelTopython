@@ -2,6 +2,7 @@ import os
 import sys
 from os.path import join, dirname, abspath
 import wx
+import wx.animate
 import math
 import wx.lib.agw.multidirdialog as MDD
 import wx.lib.scrolledpanel as scrolled
@@ -16,17 +17,6 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
 from matplotlib.backends.backend_wx import NavigationToolbar2Wx
 from matplotlib.figure import Figure
-'''import subprocess
-cmd = ['xrandr']
-cmd2 = ['grep', '*']
-p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-p2 = subprocess.Popen(cmd2, stdin=p.stdout, stdout=subprocess.PIPE)
-p.stdout.close()
-
-resolution_string, junk = p2.communicate()
-resolution = resolution_string.split()[0]
-width, height = resolution.split('x')
-print width, height'''
 wildcard = "Excel Workbook (*.xls)|*.xls|" \
             "All files (*.*)|*.*"
 class MyGrid(grid.Grid, glr.GridWithLabelRenderersMixin):
@@ -220,7 +210,7 @@ class TabOne(wx.Panel):
         vbox_leftPan.Add((-1, 25))
         ###########################
         lbl2 = wx.StaticText(leftPan, -1, style=wx.ALIGN_CENTER)
-        txt2 = "                       Model"
+        txt2 = "            Model Coefficients"
         font2 = wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
         lbl2.SetFont(font2)
         lbl2.SetLabel(txt2)
@@ -241,8 +231,9 @@ class TabOne(wx.Panel):
         vbox_leftPan.Add((-1, 25))
         ###############################
         lbl3 = wx.StaticText(leftPan, -1, style=wx.ALIGN_CENTER)
-        #txt3 = "                   Episodic Storm Inputs or Thin Layer Placement"
-        txt3 = "      Episodic"
+        txt3 =''' Episodic Storm Inputs or 
+         Thin Layer Placement'''
+        #txt3 = "      Episodic"
         font3 = wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
         lbl3.SetFont(font3)
         lbl3.SetLabel(txt3)
@@ -277,13 +268,13 @@ class TabOne(wx.Panel):
 
         self.rupPan = wx.Panel(self)
         self.rupPan.SetBackgroundColour('#edeeff')
-        self.drawImages()
+        #self.drawImages()
         #self.vbox_rupPan = wx.BoxSizer(wx.VERTICAL)
 
         #self.hbox_rupPan = wx.BoxSizer(wx.HORIZONTAL)
-
-        # qw = wx.StaticText(rupPan, style=wx.TE_CENTER,label="                                                                             Copyright University of South Carolina 2010. All Rights Reserved, JT Morris 6-9-10")
-        # vbox_rupPan.Add(qw, 2, wx.EXPAND | wx.ALL, 0)
+        wx.StaticText(self.rupPan, -1,"Copyright University of South Carolina 2010. All Rights Reserved, JT Morris 6-9-10", (325, 390))
+        #qw = wx.StaticText(self.rupPan, style=wx.TE_CENTER,label="                                                                             Copyright University of South Carolina 2010. All Rights Reserved, JT Morris 6-9-10")
+        # vbox.Add(qw, 2, wx.EXPAND | wx.ALL, 0)
         # hbox_rdownPan.Add(text_rdownPan, 2, wx.EXPAND | wx.ALL, 0)
 
         # st1 = wx.StaticText(rupPan, label='North Inlet, SC')
@@ -295,12 +286,40 @@ class TabOne(wx.Panel):
         hbox_rdownPan = wx.BoxSizer(wx.HORIZONTAL)
         # rupPan.SetSizer(vbox_rupPan)
         rbut_rdownPan = wx.Panel(self)
+        rtext_rdownPan = wx.Panel(self)
+        rtext_vbox = wx.BoxSizer(wx.VERTICAL)
         # rbut_rdownPan.SetBackgroundColour('cyan')
-        hbox_rdownPan.Add(rbut_rdownPan, 1, wx.EXPAND | wx.ALL, 0)
+        hbox_rdownPan.Add(rbut_rdownPan, 0.90, wx.EXPAND | wx.ALL, 0)
+        hbox_rdownPan.Add(rtext_rdownPan, 2, wx.EXPAND | wx.ALL, 0)
+        #rtext_rdownPan.SetBackgroundColour('red')
+        rdown_text1='''Metrics computed over the final 50 years of simulation
+   1.16 avg vert accretion (cm/yr)  last 50 yr of the simulation (yrs 51-100 average)
+   36.7 refractory c seq (g C/m2/yr) at the end of the simulation from top 50 cohorts
+   52.1 total C/m2 in belowground biomass in top 50 cohorts (50 years) (g C/m2/yr)'''
 
+        lbl_1 = wx.StaticText(rtext_rdownPan, -1, style=wx.ALIGN_CENTER)
+
+        rtextfont = wx.Font(11, wx.ROMAN, wx.FONTSTYLE_NORMAL, wx.NORMAL)
+        lbl_1.SetFont(rtextfont)
+        lbl_1.SetLabel(rdown_text1)
+        rtext_vbox.Add((-1, 10))
+        rtext_vbox.Add((-1, 10))
+        rtext_vbox.Add(lbl_1, 0, wx.ALIGN_CENTER)
+        rtext_vbox.Add((-1, 25))
+        rdown_text2='''Metrics computed over the first 50 years of simulation
+   0.87 avg vert accretion (cm/yr)  first 50 yr of the simulation (yrs 1-50 average)
+41.4 refractory c seq (g C/m2/yr) at the mid point of the simulation from top 50 cohorts
+   58.1 total C/m2 in belowground biomass from top 50 cohorts (50 years) (g C/m2/yr)
+'''
+        lbl_2 = wx.StaticText(rtext_rdownPan, -1, style=wx.ALIGN_CENTER)
+        lbl_2.SetFont(rtextfont)
+        lbl_2.SetLabel(rdown_text2)
+        rtext_vbox.Add(lbl_2, 0, wx.ALIGN_CENTER)
+        #rtext_rdownPan.Add(rtext_vbox)
+        rtext_rdownPan.SetSizer(rtext_vbox)
         vbox.Add(hbox_rdownPan, 1, wx.EXPAND | wx.ALL, 0)
         rbut_vbox = wx.BoxSizer(wx.VERTICAL)
-        r1 = wx.RadioButton(rbut_rdownPan, label='Plum Island, MA', style=wx.RB_GROUP)
+        r1 = wx.RadioButton(rbut_rdownPan, label='Plum Island, MA')
         r2 = wx.RadioButton(rbut_rdownPan, label='North Inlet, SC')
         r3 = wx.RadioButton(rbut_rdownPan, label='Apalachicola, FL')
         r4 = wx.RadioButton(rbut_rdownPan, label='Grand Bay, MS')
@@ -319,19 +338,20 @@ class TabOne(wx.Panel):
 
         #wx.PostEvent(r2, wx.CommandEvent(wx.wxEVT_RADIOBUTTON_CLICKED))
         rbut_vbox.Add((-1, 10))
-        rbut_vbox.Add(r1)
         rbut_vbox.Add((-1, 10))
-        rbut_vbox.Add(r2)
-        rbut_vbox.Add((-1, 10))
-        rbut_vbox.Add(r3)
-        rbut_vbox.Add((-1, 10))
-        rbut_vbox.Add(r4)
-        rbut_vbox.Add((-1, 10))
-        rbut_vbox.Add(r5)
-        rbut_vbox.Add((-1, 10))
-        rbut_vbox.Add(r6)
+        rbut_vbox.Add(r1,0,wx.LEFT,20)
+        rbut_vbox.Add((-1, 15))
+        rbut_vbox.Add(r2,0,wx.LEFT,20)
+        rbut_vbox.Add((-1, 15))
+        rbut_vbox.Add(r3,0,wx.LEFT,20)
+        rbut_vbox.Add((-1, 15))
+        rbut_vbox.Add(r4,0,wx.LEFT,20)
+        rbut_vbox.Add((-1, 15))
+        rbut_vbox.Add(r5,0,wx.LEFT,20)
+        rbut_vbox.Add((-1, 15))
+        rbut_vbox.Add(r6,0,wx.LEFT,20)
         rbut_rdownPan.SetSizer(rbut_vbox)
-        text_rdownPan = wx.Panel(self)
+        #text_rdownPan = wx.Panel(self)
         # text_rdownPan.SetBackgroundColour('red')
         #text_rdownPan.Add((-1, 10))
        # //wx.StaticText(text_rdownPan, style=wx.TE_LEFT, label=" Metrics computed over the final 50 years of simulation")
@@ -382,35 +402,36 @@ class TabOne(wx.Panel):
         folder = 'asset'
         #print join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))),folder,'first.png')
         #image1 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'first.png')
-        image1 = join(os.path.dirname(os.path.abspath(sys.argv[0])), folder, 'first.png')
+        image1 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'first.png')
+        #print image1
         try:
             #print "try"
             image = wx.Image(image1, wx.BITMAP_TYPE_ANY)
-        except IOError:
-            #print "catch"
+        except:
+            print "catch"
             image = wx.Image('asset/first.png', wx.BITMAP_TYPE_ANY)
         #print image
-        image = image.Scale(300, 170, wx.IMAGE_QUALITY_HIGH)
+        image = image.Scale(320, 170, wx.IMAGE_QUALITY_HIGH)
         imageBitmap = wx.StaticBitmap(self.rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
         imageBitmap.SetPosition((30, 30))
         #self.hbox_rupPan.Add(imageBitmap, 0, wx.LEFT | wx.RIGHT, 15)
         #image2 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'second.png')
-        image2 = join(os.path.dirname(os.path.abspath(sys.argv[0])), folder, 'second.png')
+        image2 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'second.png')
         try:
             image = wx.Image(image2, wx.BITMAP_TYPE_ANY)
-        except IOError:
+        except:
             image = wx.Image('asset/second.png', wx.BITMAP_TYPE_ANY)
-        image = image.Scale(300, 170, wx.IMAGE_QUALITY_HIGH)
+        image = image.Scale(320, 170, wx.IMAGE_QUALITY_HIGH)
         imageBitmap = wx.StaticBitmap(self.rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
         imageBitmap.SetPosition((360, 30))
         #self.hbox_rupPan.Add(imageBitmap, 0, wx.LEFT | wx.RIGHT, 15)
         #image3 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'third.png')
-        image3 = join(os.path.dirname(os.path.abspath(sys.argv[0])), folder, 'third.png')
+        image3 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'third.png')
         try:
             image = wx.Image(image3, wx.BITMAP_TYPE_ANY)
-        except IOError:
+        except:
             image = wx.Image('asset/third.png', wx.BITMAP_TYPE_ANY)
-        image = image.Scale(300, 170, wx.IMAGE_QUALITY_HIGH)
+        image = image.Scale(320, 170, wx.IMAGE_QUALITY_HIGH)
         imageBitmap = wx.StaticBitmap(self.rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
         imageBitmap.SetPosition((690, 30))
         #self.hbox_rupPan.Add(imageBitmap, 0, wx.LEFT | wx.RIGHT, 15)
@@ -419,34 +440,34 @@ class TabOne(wx.Panel):
         #vbox_rupPan.Add((-1, 20))
         #hbox_rupPan1 = wx.BoxSizer(wx.HORIZONTAL)
         #image4 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'fourth.png')
-        image4 = join(os.path.dirname(os.path.abspath(sys.argv[0])), folder, 'fourth.png')
+        image4 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'fourth.png')
         try:
             image = wx.Image(image4, wx.BITMAP_TYPE_ANY)
-        except IOError:
+        except:
             image = wx.Image('asset/fourth.png', wx.BITMAP_TYPE_ANY)
-        image = image.Scale(300, 170, wx.IMAGE_QUALITY_HIGH)
+        image = image.Scale(320, 170, wx.IMAGE_QUALITY_HIGH)
         imageBitmap = wx.StaticBitmap(self.rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
-        imageBitmap.SetPosition((30, 230))
+        imageBitmap.SetPosition((30, 210))
         #hbox_rupPan1.Add(imageBitmap, 0, wx.LEFT | wx.RIGHT, 15)
         #image5 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'fifth.png')
-        image5 = join(os.path.dirname(os.path.abspath(sys.argv[0])), folder, 'fifth.png')
+        image5 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'fifth.png')
         try:
             image = wx.Image(image5, wx.BITMAP_TYPE_ANY)
-        except IOError:
+        except:
             image = wx.Image('asset/fifth.png', wx.BITMAP_TYPE_ANY)
-        image = image.Scale(300, 170, wx.IMAGE_QUALITY_HIGH)
+        image = image.Scale(320, 170, wx.IMAGE_QUALITY_HIGH)
         imageBitmap = wx.StaticBitmap(self.rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
-        imageBitmap.SetPosition((360, 230))
+        imageBitmap.SetPosition((360, 210))
         #hbox_rupPan1.Add(imageBitmap, 0, wx.LEFT | wx.RIGHT, 15)
         #image6 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'first.png')
-        image6 = join(os.path.dirname(os.path.abspath(sys.argv[0])), folder, 'first.png')
+        image6 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'first.png')
         try:
             image = wx.Image(image6, wx.BITMAP_TYPE_ANY)
-        except IOError:
+        except:
             image = wx.Image('asset/first.png', wx.BITMAP_TYPE_ANY)
-        image = image.Scale(300, 170, wx.IMAGE_QUALITY_HIGH)
+        image = image.Scale(320, 170, wx.IMAGE_QUALITY_HIGH)
         imageBitmap = wx.StaticBitmap(self.rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
-        imageBitmap.SetPosition((690, 230))
+        imageBitmap.SetPosition((690, 210))
         #hbox_rupPan1.Add(imageBitmap, 0, wx.LEFT | wx.RIGHT, 15)
         #vbox_rupPan.Add(hbox_rupPan1)
         #hbox_rupPan.Add(canvas, 0, wx.LEFT | wx.RIGHT, 30)
@@ -469,7 +490,7 @@ class TabOne(wx.Panel):
 
         #self.rupPan.SetSizer(self.vbox_rupPan)
 
-        # qw = wx.StaticText(rupPan, style=wx.TE_CENTER,label="                                                                             Copyright University of South Carolina 2010. All Rights Reserved, JT Morris 6-9-10")
+        #qw = wx.StaticText(self.rupPan, style=wx.TE_CENTER,size=(600,-1),label="                                                                             Copyright University of South Carolina 2010. All Rights Reserved, JT Morris 6-9-10")
         # vbox_rupPan.Add(qw, 2, wx.EXPAND | wx.ALL, 0)
         # hbox_rdownPan.Add(text_rdownPan, 2, wx.EXPAND | wx.ALL, 0)
 
@@ -510,6 +531,13 @@ class TabOne(wx.Panel):
         MainFrame().Show()
         #app.MainLoop()
     def onCalculate(self,e):
+        MySplash = MySplashScreen()
+        MySplash.Show()
+        '''ani = wx.animate.Animation("asset/loader.gif")
+        ctrl = wx.animate.AnimationCtrl(self, -1, ani)
+        ctrl.SetUseWindowBackgroundColour()
+        ctrl.Play()
+        wx.Yield()'''
         '''hbox_rupPan = wx.BoxSizer(wx.HORIZONTAL)
         vbox_rupPan = wx.BoxSizer(wx.VERTICAL)
         rupPan = wx.Panel(self)
@@ -1503,17 +1531,17 @@ class TabOne(wx.Panel):
                # comp_fourth_biomass_list.append(comp_list[][])
         #print comp_year_list
         #print comp_biomass_list
-        # Setting the tick size for the graphs
-        #matplotlib.rcParams.update({'font.size': 17})
-        #matplotlib.rc('xtick', labelsize=15)
-        #matplotlib.rc('ytick', labelsize=15)
+        matplotlib.rc('xtick',labelsize=15)
+        matplotlib.rc('ytick', labelsize=15)
+        plt.rc('axes', labelsize=15)
         plt.axis([0, 100, 0, 200])
         plt.plot(comp_year_list, comp_msl_list, comp_year_list, comp_marshele_list)
         plt.xlabel("time (yrs)")
         plt.ylabel("cm NAVD")
         ax = plt.gca()
-        #print ax
+
         ax.set_facecolor('#edeeff')
+        #ax.set_facecolor('red')
         #plt.xticks([1, 20, 40, 60, 80, 100], ['0', '20', '40', '60', '80', '100'])
         #image1 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'first.png')
         '''try:
@@ -1524,38 +1552,43 @@ class TabOne(wx.Panel):
         '''
         #print join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'fifth.png')
         try:
-            plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'fifth.png'),facecolor = '#edeeff')
+            plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'fifth.png'),facecolor = '#edeeff', dpi=96)
         except:
-            plt.savefig('asset/fifth.png', facecolor='#edeeff')
+            plt.savefig('asset/fifth.png', facecolor='#edeeff', dpi=96)
         plt.close()
-
+        matplotlib.rc('ytick', labelsize=12)
         plt.axis([0, 100, 0, 1600])
         plt.plot(comp_year_list, comp_fourth_biomass_list)
         plt.xlabel("time (yrs)")
         plt.ylabel("Standing Biomass (g/m2)")
+        #plt.rc('axes', labelsize=20)
         ax = plt.gca()
-        ax.set_facecolor('#edeeff')
 
+        ax.set_facecolor('#edeeff')
         #plt.xticks([1, 20, 40, 60, 80, 100], ['0', '20', '40', '60', '80', '100'])
         try:
             plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'fourth.png'),facecolor = '#edeeff')
         except:
             plt.savefig('asset/fourth.png',facecolor = '#edeeff')
         plt.close()
+        matplotlib.rc('ytick', labelsize=12)
         plt.axis([0, 300, 0, 1600])
+
         plt.plot(comp_elev_list, comp_biomass_list)
         plt.xlabel("Elevation (cm) Rel to MSL")
         plt.ylabel("Standing Biomass (g/m2)")
+
         ax = plt.gca()
         ax.set_facecolor('#edeeff')
         #plt.xticks([1, 20, 40, 60, 80, 100], ['0', '20', '40', '60', '80', '100'])
         try:
-            plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'first.png'),facecolor = '#edeeff')
+            plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'first.png'),facecolor = '#edeeff', dpi=96)
         except:
-            plt.savefig('asset/first.png',facecolor = '#edeeff')
+            plt.savefig('asset/first.png',facecolor = '#edeeff', dpi=96)
         #plt.savefig('asset/first.png',facecolor = '#edeeff')
         plt.close()
-
+        matplotlib.rc('xtick',labelsize=15)
+        matplotlib.rc('ytick', labelsize=15)
         plt.axis([1, 100, 0, 1])
         plt.plot(comp_year_list, comp_ind_time)
         plt.xlabel("time (yrs)")
@@ -1591,7 +1624,7 @@ class TabOne(wx.Panel):
         #print parent
         #self.Update()
         #self.Refresh()
-        #self.drawImages()
+        self.drawImages()
     def onRadioButton(self, e):
         #print "here"
         if e is None:
@@ -1606,7 +1639,10 @@ class TabOne(wx.Panel):
         # self.rupPan.ruplbl.SetLabel(cb_r.GetLabel())
         ##print TabOne.filePath
         ##print cb_r.GetLabel()
-
+        title_lbl = wx.StaticText(self.rupPan, -1, pos=(370, 10),size=(500,10))
+        title_font = wx.Font(14, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
+        title_lbl.SetFont(title_font)
+        title_lbl.SetLabel(lab)
         if lab == 'North Inlet, SC':
             #print 'North'
             #object1 = TabTwo("abcd")
@@ -2038,20 +2074,17 @@ class TabThree(wx.Panel):
         wx.Panel.__init__(self, parent)
         #panel = wx.Panel(self)
         #t = wx.StaticText(self, -1, "This is the third tab", (20, 20))
-        '''filename = "MEM_file.xls"
-        book = xlrd.open_workbook(filename, formatting_info=1)
-        sheetname = "Instructions"
-        sheet = book.sheet_by_name(sheetname)
-        rows, cols = sheet.nrows, sheet.ncols
-        comments, texts = XG.ReadExcelCOM(filename, sheetname, rows, cols)
+        '''try:
+            imageFile = "C:\Users\VKOTHA\Downloads\Instructions.jpg"
+            #imageFile = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'Instructions.jpg')
 
-        xlsGrid = XG.XLSGrid(self)
-        xlsGrid.PopulateGrid(book, sheet, texts, comments)
 
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(xlsGrid, 1, wx.EXPAND, 5)
-        self.SetSizer(sizer)'''
-        imageFile = "C:\Users\VKOTHA\Downloads\Instructions.jpg"
+        except:'''
+            #print "exceptinstr"
+        imageFile = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset','Instructions.jpg')
+            #bitmap = wx.Bitmap("asset/logo.jpg")
+        #print imageFile
+        #imageFile = "C:\Users\VKOTHA\Downloads\Instructions.jpg"
         #leftPan = wx.lib.scrolledpanel.ScrolledPanel(self)
         #leftPan.SetupScrolling()
         png = wx.Image(imageFile, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
@@ -2216,21 +2249,74 @@ class TabTen(wx.Panel):
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(sheet10Grid, 1, wx.EXPAND)
         self.SetSizer(sizer)
+class MySplashScreen(wx.SplashScreen):
+    """
+Create a splash screen widget.
+    """
+    def __init__(self, parent=None):
+        # This is a recipe to a the screen.
+        # Modify the following variables as necessary.
+        try:
+            #print "trybitmap"
+            #print join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'logo.jpg')
+            #plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'fifth.png'),facecolor = '#edeeff', dpi=96)
+            aBitmap = wx.Image(name=join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'logo.jpg')).ConvertToBitmap()
+
+        except:
+            #print "exceptbitmap"
+            aBitmap = wx.Image(name="asset/logo.jpg").ConvertToBitmap()
+
+
+
+        #aBitmap = wx.Image(name="asset/logo.jpg").ConvertToBitmap()
+        splashStyle = wx.SPLASH_CENTRE_ON_SCREEN | wx.SPLASH_TIMEOUT
+        splashDuration = 1000 # milliseconds
+        # Call the constructor with the above arguments in exactly the
+        # following order.
+        wx.SplashScreen.__init__(self, aBitmap, splashStyle,
+                                 splashDuration, parent)
+        self.Bind(wx.EVT_CLOSE, self.OnExit)
+
+        wx.Yield()
+#----------------------------------------------------------------------#
+
+    def OnExit(self, evt):
+        self.Hide()
+        # MyFrame is the main frame.
+        #MyFrame = MyGUI(None, -1, "Hello from wxPython")
+        #app.SetTopWindow(MyFrame)
+        #MyFrame.Show(True)
+        # The program will freeze without this line.
+        evt.Skip()  # Make sure the default handler runs too...
+class GifPanel(wx.Panel):
+    """ class MyPanel creates a panel, inherits wx.Panel """
+    def __init__(self, parent, id):
+        # default pos and size creates a panel that fills the frame
+        wx.Panel.__init__(self, parent, id)
+        self.SetBackgroundColour("white")
+        # pick the filename of an animated GIF file you have ...
+        # give it the full path and file name!
+        ag_fname = "asset/loading.gif"
+        ag = wx.animate.GIFAnimationCtrl(self, id, ag_fname, pos=(10, 10))
+        # clears the background
+        ag.GetPlayer().UseBackgroundColour(True)
+        # continuously loop through the frames of the gif file (default)
+        ag.Play()
+
 class MainFrame(wx.Frame):
     #filePath = "MEM_file.xls"
     #filePath = "test.xls"
     #filePath = "C://Users/VKOTHA/Downloads/Temp.xls"
     def __init__(self):
-        wx.Frame.__init__(self, None, size = (width,height), title="MEM v6.0")
+        wx.Frame.__init__(self, None, size = (1200,650), title="MEM v6.0")
         # Create a panel and notebook (tabs holder)
         #self.Centre()
-        #self.ShowFullScreen()
         p = wx.Panel(self)
         #self.SetDimensions(0, 0, 1200, 480)
         #self.Show()
         #print wx.GetDisplaySize()
         #print wx.DefaultSize
-
+        #self.ShowFullScreen(True)
         nb = wx.Notebook(p)
 
         # Create the tab windows
@@ -2269,10 +2355,27 @@ class MainFrame(wx.Frame):
         p.SetSizer(sizer)
 
 
+def show_splash():
+    # create, show and return the splash screen
+    try:
+        #print "tryshowsplash"
+        #print join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'logo.jpg')
+        # plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'fifth.png'),facecolor = '#edeeff', dpi=96)
+        #aBitmap = wx.Image(name=join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset','logo.jpg')).ConvertToBitmap()
+        bitmap = wx.Bitmap(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset','logo.jpg'))
 
+
+    except:
+        #print "exceptshowsplash"
+        bitmap = wx.Bitmap("asset/logo.jpg")
+
+    #bitmap = wx.Bitmap("asset/logo.jpg")
+    splash = wx.SplashScreen(bitmap, wx.SPLASH_CENTRE_ON_SCREEN|wx.SPLASH_NO_TIMEOUT, 0, None, -1)
+    splash.Show()
+    return splash
 if __name__ == "__main__":
     app = wx.App()
-    width, height = wx.GetDisplaySize()
-    #print width, height
+    splash = show_splash()
     MainFrame().Show()
+    splash.Destroy()
     app.MainLoop()
