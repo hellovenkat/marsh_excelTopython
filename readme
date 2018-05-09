@@ -6,6 +6,6 @@ Folder Structure
 
 ### Directory layout
 
-    .
+    marsh_excelTopython
     ├── asset                   # Image and Data files
     └── src                     # Source files (.py files
