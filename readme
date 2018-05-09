@@ -1,7 +1,7 @@
 The folder structure should be in the following way:
                               
-                             |----------asset
-                             |  
-marsh_excelTppython-----------
+                             
+                             
+marsh_excelTppython---------------------asset
                              |
                              |----------python_files
