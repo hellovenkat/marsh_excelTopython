@@ -1,23 +1,11 @@
 The folder structure should be in the following way:
                               
-                             
-                             
-marsh_excelTopython
-|______asset                 # Image and Data files 
-|______src                   # Source files (.py files)
 
-Folder Structure Conventions
-============================
+Folder Structure
+================
 
-> Folder structure options and naming conventions for software projects
-
-### A typical top-level directory layout
+### Directory layout
 
     .
-    ├── build                   # Compiled files (alternatively `dist`)
-    ├── docs                    # Documentation files (alternatively `doc`)
-    ├── src                     # Source files (alternatively `lib` or `app`)
-    ├── test                    # Automated tests (alternatively `spec` or `tests`)
-    ├── tools                   # Tools and utilities
-    ├── LICENSE
-    └── README.md
+    ├── asset                   # Image and Data files
+    └── src                     # Source files (.py files
