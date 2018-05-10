@@ -58,24 +58,9 @@ class TabOne(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
         self.InitUI()
-    #def populate(self):
-        #self.rupPan.SetBackgroundColour('red')
+
     def InitUI(self):
-        #panel = wx.Panel(self)
-        #panel.SetBackgroundColour('#4f5049')
-        '''t = wx.StaticText(self, -1, "This is the first tab", (20, 20))
-        hbox1 = wx.BoxSizer(wx.HORIZONTAL)
-        left = wx.Panel(self)
-        left.SetBackgroundColour('cyan')
-        #hbox1.Add(left, border=8)
-        hbox1.Add(left, 3, wx.EXPAND | wx.ALL, 5)
-        right = wx.Panel(self)
-        right.SetBackgroundColour('red')
-        #hbox1.Add(right,  border=8)
-        hbox1.Add(right, 3, wx.EXPAND | wx.ALL, 5)
-        self.SetSizer(hbox1)'''
-        #panel = wx.Panel(self)
-        #self.SetBackgroundColour('#4f5049')
+
         self.SetBackgroundColour('#edeeff')
         vbox = wx.BoxSizer(wx.VERTICAL)
         hbox = wx.BoxSizer(wx.HORIZONTAL)
@@ -83,19 +68,13 @@ class TabOne(wx.Panel):
         #leftPan = wx.Panel(self)
         leftPan = wx.lib.scrolledpanel.ScrolledPanel(self)
         leftPan.SetupScrolling()
-        #rightPan = wx.lib.scrolledpanel.ScrolledPanel(self)
-        #rightPan.SetupScrolling()
-        # leftPan.SetBackgroundColour('cyan')
+
         vbox_leftPan = wx.BoxSizer(wx.VERTICAL)
         global cb1, cb2, cb3, cb4
         cb1 = wx.CheckBox(leftPan, label='Use a generic biom profile')
         cb2 = wx.CheckBox(leftPan, label='Add thin layer')
         cb3 = wx.CheckBox(leftPan, label='Calibrate to accretion rate')
         cb4 = wx.CheckBox(leftPan, label='for future development')
-        '''vbox_leftPan.Add(cb1,0,wx.ALIGN_CENTER)
-        vbox_leftPan.Add(cb2,0,wx.ALIGN_CENTER)
-        vbox_leftPan.Add(cb3,0,wx.ALIGN_CENTER)
-        vbox_leftPan.Add(cb4,0,wx.ALIGN_CENTER)'''
         leftPan.SetSizer(vbox_leftPan)
         vbox_leftPan.Add((-1, 3))
         vbox_leftPan.Add(cb1)
@@ -161,7 +140,6 @@ class TabOne(wx.Panel):
         lbl1.SetFont(font1)
         lbl1.SetLabel(txt1)
         vbox_leftPan.Add(lbl1)
-        #gs1 = wx.GridSizer(10, 3, 0, 0)
         fgs_bio = wx.FlexGridSizer(10, 3, 0, 0)
         global bio_max_growth, bio_min_growth, bio_opt_growth, bio_max_peak, bio_OM_below_root, bio_OM_decay, bio_BGBio, bio_BG_turnover, bio_max_root_depth, bio_reserved
         bio_max_growth = wx.TextCtrl(leftPan, style=wx.TE_RIGHT, value="",size=(40, -1))
@@ -261,38 +239,26 @@ class TabOne(wx.Panel):
 
         vbox_leftPan.Add(fgs_epi, proportion=0, flag=wx.EXPAND)
         vbox_leftPan.Add((-1, 25))
-        # panel2 = wx.lib.scrolledpanel.ScrolledPanel(self, -1, size=(screenWidth, 400), pos=(0, 28),
-        # style=wx.SIMPLE_BORDER)
-        # leftPan.SetupScrolling()
         ###############################
         hbox.Add(leftPan, 1, wx.EXPAND | wx.ALL, 5)
 
         self.rupPan = wx.Panel(self)
         self.rupPan.SetBackgroundColour('#edeeff')
-        #self.drawImages()
-        #self.vbox_rupPan = wx.BoxSizer(wx.VERTICAL)
 
-        #self.hbox_rupPan = wx.BoxSizer(wx.HORIZONTAL)
         wx.StaticText(self.rupPan, -1, "Copyright University of South Carolina 2010. All Rights Reserved, JT Morris 6-9-10", (325, 390))
-        #qw = wx.StaticText(self.rupPan, style=wx.TE_CENTER,label="                                                                             Copyright University of South Carolina 2010. All Rights Reserved, JT Morris 6-9-10")
-        # vbox.Add(qw, 2, wx.EXPAND | wx.ALL, 0)
-        # hbox_rdownPan.Add(text_rdownPan, 2, wx.EXPAND | wx.ALL, 0)
 
-        # st1 = wx.StaticText(rupPan, label='North Inlet, SC')
-        # st2 = wx.StaticText(rupPan, label='MEM-TLP 6.0')
         vbox.Add(self.rupPan, 2, wx.EXPAND | wx.ALL, 0)
 
-        # rdownPan = wx.Panel(panel)
-        # rdownPan.SetBackgroundColour('#eeeeee')
+
         hbox_rdownPan = wx.BoxSizer(wx.HORIZONTAL)
-        # rupPan.SetSizer(vbox_rupPan)
+
         rbut_rdownPan = wx.Panel(self)
         rtext_rdownPan = wx.Panel(self)
         rtext_vbox = wx.BoxSizer(wx.VERTICAL)
-        # rbut_rdownPan.SetBackgroundColour('cyan')
+
         hbox_rdownPan.Add(rbut_rdownPan, 0.90, wx.EXPAND | wx.ALL, 0)
         hbox_rdownPan.Add(rtext_rdownPan, 2, wx.EXPAND | wx.ALL, 0)
-        #rtext_rdownPan.SetBackgroundColour('red')
+
         rdown_text1='''Metrics computed over the final 50 years of simulation
    1.16 avg vert accretion (cm/yr)  last 50 yr of the simulation (yrs 51-100 average)
    36.7 refractory c seq (g C/m2/yr) at the end of the simulation from top 50 cohorts
@@ -316,7 +282,7 @@ class TabOne(wx.Panel):
         lbl_2.SetFont(rtextfont)
         lbl_2.SetLabel(rdown_text2)
         rtext_vbox.Add(lbl_2, 0, wx.ALIGN_CENTER)
-        #rtext_rdownPan.Add(rtext_vbox)
+
         rtext_rdownPan.SetSizer(rtext_vbox)
         vbox.Add(hbox_rdownPan, 1, wx.EXPAND | wx.ALL, 0)
         rbut_vbox = wx.BoxSizer(wx.VERTICAL)
@@ -326,9 +292,9 @@ class TabOne(wx.Panel):
         r4 = wx.RadioButton(rbut_rdownPan, label='Grand Bay, MS')
         r5 = wx.RadioButton(rbut_rdownPan, label='Coon Isl, SFB')
         r6 = wx.RadioButton(rbut_rdownPan, label='Other Estuary')
-        #r2.SetValue(True)
+
         r1.Bind(wx.EVT_RADIOBUTTON, self.onRadioButton)
-        # rupPan.SetSizer(vbox_rupPan)
+
         r2.Bind(wx.EVT_RADIOBUTTON, self.onRadioButton)
         r3.Bind(wx.EVT_RADIOBUTTON, self.onRadioButton)
         r4.Bind(wx.EVT_RADIOBUTTON, self.onRadioButton)
@@ -337,7 +303,7 @@ class TabOne(wx.Panel):
         r2.SetValue(True)
         self.onRadioButton(None)
 
-        #wx.PostEvent(r2, wx.CommandEvent(wx.wxEVT_RADIOBUTTON_CLICKED))
+
         rbut_vbox.Add((-1, 10))
         rbut_vbox.Add((-1, 10))
         rbut_vbox.Add(r1,0,wx.LEFT,20)
@@ -352,162 +318,53 @@ class TabOne(wx.Panel):
         rbut_vbox.Add((-1, 15))
         rbut_vbox.Add(r6,0,wx.LEFT,20)
         rbut_rdownPan.SetSizer(rbut_vbox)
-        #text_rdownPan = wx.Panel(self)
-        # text_rdownPan.SetBackgroundColour('red')
-        #text_rdownPan.Add((-1, 10))
-       # //wx.StaticText(text_rdownPan, style=wx.TE_LEFT, label=" Metrics computed over the final 50 years of simulation")
-        #hbox_rdownPan.Add(text_rdownPan, 1, wx.EXPAND | wx.ALL, 0)
 
-        '''browsePanel = wx.Panel(self)
-        hbox_rdownPan.Add(browsePanel, 1, wx.EXPAND | wx.ALL, 0)
-        browsePanel_vbox = wx.BoxSizer(wx.VERTICAL)
-        AnotherFile = wx.StaticText(browsePanel, style=wx.TE_RIGHT, label="Choose another excel file")
-        self.currentDirectory = os.getcwd()
-        openFileDlgBtn = wx.Button(browsePanel, label="Browse")
-        openFileDlgBtn.Bind(wx.EVT_BUTTON, self.onOpenFile)
-        closeBtn = wx.Button(browsePanel, label="Change")
-        closeBtn.Bind(wx.EVT_BUTTON, self.onClose)
-        #button = wx.Button(browsePanel, id=wx.ID_ANY, label="Change")
-        #button.Bind(wx.EVT_BUTTON, self.onButton, what)
-        browsePanel_vbox.Add((-1, 10))
-        browsePanel_vbox.Add(AnotherFile)
-        browsePanel_vbox.Add((-1, 10))
-        #browsePanel_vbox.Add(textBox)
-        #browsePanel_vbox.Add((-1, 10))
-        browsePanel_vbox.Add(openFileDlgBtn)
-        browsePanel_vbox.Add((-1, 10))
-        browsePanel_vbox.Add(closeBtn)
-        browsePanel_vbox.Add((-1, 10))
-        browsePanel.SetSizer(browsePanel_vbox)'''
+
+
 
         hbox.Add(vbox, 3, wx.EXPAND | wx.ALL, 5)
         self.SetSizer(hbox)
 
         #panel.EnableScrolling(True,True)
     def drawImages(self):
-        #vbox_rupPan = wx.BoxSizer(wx.VERTICAL)
 
-        #hbox_rupPan = wx.BoxSizer(wx.HORIZONTAL)
-        # rupPan.SetSizer(hbox_rupPan)
-        #self.vbox_rupPan.Add((-1, 10))
-
-        # rup_title = wx.StaticText(rupPan, style=wx.ALIGN_CENTRE, label = "North Inlet, SC")
-        # vbox_rupPan.Add(rup_title, wx.LEFT|wx.RIGHT, 30)
-        # ruptxt = "North Inlet, SC"+"\n"+"MEM-TLP 6.0"
-        # rupfont = wx.Font(16, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
-        # ruplbl.SetFont(rupfont)
-        # ruplbl.SetLabel(ruptxt)
-        #self.vbox_rupPan.Add((-1, 30))
-        #print "in panel"
-        #print self
         folder = 'asset'
-        #print join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))),folder,'first.png')
-        #image1 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'first.png')
+
         image1 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'first.png')
-        #print image1
-        '''try:
-            #print "try"
-            image = wx.Image(image1, wx.BITMAP_TYPE_ANY)
-        except:
-            print "catch"
-            image = wx.Image('asset/first.png', wx.BITMAP_TYPE_ANY)'''
-        #print image
+
         image = wx.Image(image1, wx.BITMAP_TYPE_ANY)
-        #image = wx.Image('asset/first.png', wx.BITMAP_TYPE_ANY)
         image = image.Scale(320, 170, wx.IMAGE_QUALITY_HIGH)
         imageBitmap = wx.StaticBitmap(self.rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
         imageBitmap.SetPosition((30, 30))
-        #self.hbox_rupPan.Add(imageBitmap, 0, wx.LEFT | wx.RIGHT, 15)
-        #image2 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'second.png')
         image2 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'second.png')
         image = wx.Image(image2, wx.BITMAP_TYPE_ANY)
         image = image.Scale(320, 170, wx.IMAGE_QUALITY_HIGH)
         imageBitmap = wx.StaticBitmap(self.rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
         imageBitmap.SetPosition((360, 30))
-        #self.hbox_rupPan.Add(imageBitmap, 0, wx.LEFT | wx.RIGHT, 15)
-        #image3 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'third.png')
         image3 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'third.png')
-        '''try:
-            image = wx.Image(image3, wx.BITMAP_TYPE_ANY)
-        except:
-            image = wx.Image('asset/third.png', wx.BITMAP_TYPE_ANY)'''
+
         image = wx.Image(image3, wx.BITMAP_TYPE_ANY)
-        #image = wx.Image('asset/third.png', wx.BITMAP_TYPE_ANY)
         image = image.Scale(320, 170, wx.IMAGE_QUALITY_HIGH)
         imageBitmap = wx.StaticBitmap(self.rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
         imageBitmap.SetPosition((690, 30))
-        #self.hbox_rupPan.Add(imageBitmap, 0, wx.LEFT | wx.RIGHT, 15)
-        #self.vbox_rupPan.Add(self.hbox_rupPan)
-        #vbox_rupPan.Add(hbox_rupPan)
-        #vbox_rupPan.Add((-1, 20))
-        #hbox_rupPan1 = wx.BoxSizer(wx.HORIZONTAL)
-        #image4 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'fourth.png')
         image4 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'fourth.png')
-        '''try:
-            image = wx.Image(image4, wx.BITMAP_TYPE_ANY)
-        except:
-            image = wx.Image('asset/fourth.png', wx.BITMAP_TYPE_ANY)'''
+
         image = wx.Image(image4, wx.BITMAP_TYPE_ANY)
-        #image = wx.Image('asset/fourth.png', wx.BITMAP_TYPE_ANY)
         image = image.Scale(320, 170, wx.IMAGE_QUALITY_HIGH)
         imageBitmap = wx.StaticBitmap(self.rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
         imageBitmap.SetPosition((30, 210))
-        #hbox_rupPan1.Add(imageBitmap, 0, wx.LEFT | wx.RIGHT, 15)
-        #image5 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'fifth.png')
         image5 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'fifth.png')
-        '''try:
-            image = wx.Image(image5, wx.BITMAP_TYPE_ANY)
-        except:
-            image = wx.Image('asset/fifth.png', wx.BITMAP_TYPE_ANY)'''
         image = wx.Image(image5, wx.BITMAP_TYPE_ANY)
-        #image = wx.Image('asset/fifth.png', wx.BITMAP_TYPE_ANY)
         image = image.Scale(320, 170, wx.IMAGE_QUALITY_HIGH)
         imageBitmap = wx.StaticBitmap(self.rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
         imageBitmap.SetPosition((360, 210))
-        #hbox_rupPan1.Add(imageBitmap, 0, wx.LEFT | wx.RIGHT, 15)
-        #image6 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'first.png')
         image6 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'sixth.png')
-        '''try:
-            image = wx.Image(image6, wx.BITMAP_TYPE_ANY)
-        except:
-            image = wx.Image('asset/first.png', wx.BITMAP_TYPE_ANY)'''
         image = wx.Image(image6, wx.BITMAP_TYPE_ANY)
-        #image = wx.Image('asset/sixth.png', wx.BITMAP_TYPE_ANY)
         image = image.Scale(320, 170, wx.IMAGE_QUALITY_HIGH)
         imageBitmap = wx.StaticBitmap(self.rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
         imageBitmap.SetPosition((690, 210))
-        #hbox_rupPan1.Add(imageBitmap, 0, wx.LEFT | wx.RIGHT, 15)
-        #vbox_rupPan.Add(hbox_rupPan1)
-        #hbox_rupPan.Add(canvas, 0, wx.LEFT | wx.RIGHT, 30)
-        '''figs = [Figure(figsize=(3, 1.5)) for _ in range(3)]
-        axes = [fig.add_subplot(111) for fig in figs]
-        canvases = [FigureCanvas(rupPan, -1, fig) for fig in figs]
-        for canvas in canvases:
-            hbox_rupPan.Add(canvas, 0, wx.LEFT|wx.RIGHT, 30)
-        vbox_rupPan.Add(hbox_rupPan)
-        vbox_rupPan.Add((-1, 50))
-
-        hbox_rupPan1 = wx.BoxSizer(wx.HORIZONTAL)
-        figs = [Figure(figsize=(3, 1.5)) for _ in range(3)]
-        axes = [fig.add_subplot(111) for fig in figs]
-        canvases = [FigureCanvas(rupPan, -1, fig) for fig in figs]
-        for canvas in canvases:
-                hbox_rupPan1.Add(canvas, 0, wx.LEFT|wx.RIGHT|wx.TOP, 30)
-        vbox_rupPan.Add(hbox_rupPan1)'''
-        #self.vbox_rupPan.Add((-1, 20))
-
-        #self.rupPan.SetSizer(self.vbox_rupPan)
-
-        #qw = wx.StaticText(self.rupPan, style=wx.TE_CENTER,size=(600,-1),label="                                                                             Copyright University of South Carolina 2010. All Rights Reserved, JT Morris 6-9-10")
-        # vbox_rupPan.Add(qw, 2, wx.EXPAND | wx.ALL, 0)
-        # hbox_rdownPan.Add(text_rdownPan, 2, wx.EXPAND | wx.ALL, 0)
-
-        # st1 = wx.StaticText(rupPan, label='North Inlet, SC')
-        # st2 = wx.StaticText(rupPan, label='MEM-TLP 6.0')
     def onOpenFile(self, event):
-        """
-        Create and show the Open FileDialog
-        """
+
         dlg = wx.FileDialog(
             self, message="Choose a file",
             defaultDir=self.currentDirectory,
@@ -522,12 +379,7 @@ class TabOne(wx.Panel):
                 #print path
                 MainFrame.filePath = path
         dlg.Destroy()
-        #wx.Window.Destroy()
-        #self.Destroy()
-        #self.Close()
-        #MainFrame().Show(False)
 
-        #self.Update()
     def onClose(self, event):
         """"""
         #self.Close()
@@ -541,26 +393,6 @@ class TabOne(wx.Panel):
     def onCalculate(self,e,lab):
         MySplash = MySplashScreen()
         MySplash.Show()
-
-        '''ani = wx.animate.Animation("asset/loader.gif")
-        ctrl = wx.animate.AnimationCtrl(self, -1, ani)
-        ctrl.SetUseWindowBackgroundColour()
-        ctrl.Play()
-        wx.Yield()'''
-        '''hbox_rupPan = wx.BoxSizer(wx.HORIZONTAL)
-        vbox_rupPan = wx.BoxSizer(wx.VERTICAL)
-        rupPan = wx.Panel(self)
-        vbox_rupPan.Add(hbox_rupPan)
-        vbox_rupPan.Add((-1, 20))
-        hbox_rupPan1 = wx.BoxSizer(wx.HORIZONTAL)
-        image = wx.Image('asset/first.png', wx.BITMAP_TYPE_ANY)
-        image = image.Scale(350, 200, wx.IMAGE_QUALITY_HIGH)
-        imageBitmap = wx.StaticBitmap(rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
-        # imageBitmap.SetPosition((1000, 100))
-        hbox_rupPan1.Add(imageBitmap, 0, wx.LEFT | wx.RIGHT, 15)
-        rupPan.SetSizer(vbox_rupPan)'''
-        #self.draw()
-        #print "Cal"
 
         BGB = [0] * 1801
         SedD = [0] * 1801
@@ -616,40 +448,6 @@ class TabOne(wx.Panel):
         aright= [0] * 11
         bright= [0] * 11
         cright= [0] * 11
-
-        '''sorg = [0] * 600
-        soildepth = [0] * 700
-
-        MHWs = [0] * 1800
-        bio= [0] * 1800
-        SOM = [0] * 1800
-        cquest = [0] * 600
-        cmat = [0] * 600
-        OMmat= [0] * 1800
-        decay = [0] * 1800
-        MHWs= [0] * 1800
-        marshelev= [0] * 1800
-        D= [0] * 1800
-        T = [0] * 1800
-        IT = [0] * 1800
-        ybio = [0] * 1800
-
-        dzdd = [0] * 1800
-        dref = [0] * 1800
-        dlab = [0] * 1800
-        ddcay = [0] * 1800
-        bulkd = [0] * 1800
-        sedi = [0] * 1800
-        droot = [0] * 1800
-        totdepth = [0] * 1800
-        totBGB = [0] * 1800
-        dreftot = [0] * 600
-        sorg = [0] * 600
-
-
-        bincounts = [0] * 405
-        cohortbins = [0] * 405
-        #marshelev=[100]'''
 
 
         ## declaring the needed 2d values in python
@@ -771,18 +569,13 @@ class TabOne(wx.Panel):
         p = -0.512
         bscale = 0.0001
 
-        '''#print a[1]
-        #print b[1]
-        #print c[1]
-        #print D[1]'''
         bio[1] = (a[1] * D[1] + b[1] * (D[1]*D[1]) + c[1]) * bscale
-        #print "-------"
-        ##print bio[1]
+
         if bio[1] < 0:
             bio[1] = 0
         Indtime = min(1, D[1] / Trange)
         Indtime = max(0, D[1] / Trange)
-        #print Indtime
+
         IT[1] = Indtime
         #w, h = 26, 1000
 
@@ -800,55 +593,33 @@ class TabOne(wx.Panel):
 
         rangex = maxE - minE
         dele = rangex / 80
-        '''print "-----rangex----"
-        print rangex
-        print dele
-        print "-----rangex----"'''
-        '''print Dopt
-        print aleft[1]
-        print bleft[1]
-        print cleft[1]
-        print aright[1]
-        print bright[1]
-        print cright[1]
-        print "--------"'''
+
         for j in range(0,81):
             elev = minE + j * dele
             x = Tamp - elev
-            #print x
             if x<=Dopt and cb1.GetValue() is False:
-                #print "first"
                 a[1] = aleft[1]
                 b[1] = bleft[1]
                 c[1] = cleft[1]
             if x>Dopt and cb1.GetValue() is False:
-                #print "second"
+
                 a[1] = aright[1]
                 b[1] = bright[1]
                 c[1] = cright[1]
-            '''print a[1]
-            print b[1]
-            print c[1]
-            print bscale'''
+
             ybio[j+1] = (a[1] * x + b[1] * (x*x) + c[1]) * bscale
-            #print ybio[j+1]
-            #print "--------"
             if ybio[j+1] < 0:
                 ybio[j+1]=0
             comp_list[j+2][17] = elev
             comp_list[j+2][18] = ybio[j+1] * 10000
-        #print comp_list
+
         RT = bio[1] * bgmult
-        #print RT
+
         if Drmax > 0:
             Rmax = 2 * RT / Drmax
             kd = Rmax / Drmax
             Rtest = 0.5 * Rmax * Drmax
-        #print Rmax
-        #print kd
 
-        #print Rtest
-        #print "----Rtest end----"
         LRV = RT / k1
         q = float(model_max_capture.GetValue())
         kr = float(model_refrac.GetValue())
@@ -860,22 +631,16 @@ class TabOne(wx.Panel):
         else:
             inorg[1] = max(setvel * tss0 * D[1] * 0.000001 * 704 / 2, 0)
             sorg[1] = max(setvel * mts0 * D[1] * 0.000001 * 704 / 2, 0)
-        '''print inorg[1]
-        print sorg[1]
-        print "----end sorg-----"'''
+
         minwt = inorg[1]
         cohort_size = inorg[1] / k2 + sorg[1] / k1 + kr * BGTR * RT / k1
         dzm = cohort_size
         krBGTR = kr * BGTR
         BRZOM = 90 * (sorg[1] / k1 + krBGTR * RT / k1) / (inorg[1] / k2 + sorg[1] / k1 + krBGTR * RT / k1)
-        '''print minwt
-        print cohort_size
-        print krBGTR
-        print BRZOM
-        print "----end BRZOM----"'''
+
         if cb3.GetValue() is True:
-                #print "----doent go here-----"
-                maxvertacc = float(phy_lt.GetValue()) #if phy_lt.GetValue()=='' else float(phy_lt.GetValue())
+
+                maxvertacc = float(phy_lt.GetValue())
                 krBGTR = (k1 / RT) * (maxvertacc - inorg[1] / k2 - sorg[1] / k1)
                 kr = krBGTR / BGTR
                 BGTR = min(3, BGTR)
@@ -888,10 +653,6 @@ class TabOne(wx.Panel):
 
         # changed here
         Bden = (sorg[1] + krBGTR * RT + inorg[1]) / ((sorg[1] + krBGTR * RT) / k1 + inorg[1] / k2)
-        #print Bden
-        #print "-----bden end----"
-        #Bden = 1
-        # check the root distribution **********
 
         rootdist_list[3][2] = RT
         rootdist_list[4][2] = kd
@@ -900,22 +661,13 @@ class TabOne(wx.Panel):
         rootdist_list[7][2] = kr
         rootdist_list[8][2] = omdr
         rootdist_list[9][2] = BGTR
-        '''print "------here-------"
-        print RT
-        print kd
-        print Rmax
-        print Drmax
-        print kr
-        print omdr
-        print BGTR
-        print "------here-------"'''
+
         #'************************************************
         if minwt == 0 and D[1] < 0:
             dzm = (sorg[1] + krBGTR * RT) / k1
         if minwt == 0 and cb3.GetValue() is True:
             dzm = maxvertacc
-        #print dzm
-        #print "-----dzm----"
+
         nocohort = 500
 
         for ico in range(1,nocohort+1):
@@ -935,8 +687,7 @@ class TabOne(wx.Panel):
             Scenario = 3
         if sedload > 0 and D[1] > 0 and bio[1] <= 0:
             Scenario = 4
-        #print Scenario
-        #print "-----scene----"
+
 
         if Scenario == 1: #this is the case where the surface is out of the water and above the growth zone
             for ico in range(1, nocohort+1):
@@ -1047,17 +798,8 @@ class TabOne(wx.Panel):
             bulkd[500] = 1 / (0.01 * OMmat[500] / k1 + (1 - 0.01 * OMmat[500]) / k2)
             Top = Drmax - tdz
             Bot = Top - tdz
-            '''print "---after for----"
-            print lstdzdd
-            print soildepth[500]
-            print BGB[500]
-            print OMmat[500]
-            print bulkd[500]
-            print Top
-            print Bot
-            print "========close==========="'''
+
             if troubleshoot==1:
-                #print "ikkkkkkkkkkkkkkkkkkkkkkkkkkkada"
                 sheet12_list[2][ 9] = soildepth[500]
                 sheet12_list[2][10] = OMmat[500]
                 sheet12_list[2][ 11] = BGB[500]
@@ -1087,19 +829,10 @@ class TabOne(wx.Panel):
                     if abs(tdz - tdzl) < 0.00001:
                         break
                     tdzl = tdz
-                '''print "--------------dretttt---------"
-                print ico
-                print droot[ico]
-                print dlab[ico]
-                print decay[ico]
-                print dref[ico]
-                print tdz
-                print Bot
-                print "------------drrrrrreeeeeeeeett----------"'''
+
                 soildepth[ico] = dzdd[ico]
                 BGB[ico] = dref[ico] + dlab[ico] + droot[ico]
-                ##print sedi[ico]
-                ##print BGB[ico]
+
                 OMmat[ico] = 90 * BGB[ico] / (sedi[ico] + BGB[ico])
                 bulkd[ico] = 1 / (0.01 * OMmat[ico] / k1 + (1 - 0.01 * OMmat[ico]) / k2)
                 dzdd[ico] = tdz
@@ -1169,15 +902,13 @@ class TabOne(wx.Panel):
         sheet10_list[1][ 7] = "bulkd"
         sheet10_list[1][ 8] = "%OMmat"
         sheet10_list[1][ 9] = "decay"
-        #print "-------inorg-----"
-        #print inorg[1]
-        #print "----------endinrg---------"
+
         k = 0
         dztot = 0
         for ico in reversed(range(1, nocohort+1)):
             k = 502 - ico
             dztot = dztot + dzdd[ico]
-            ##print k
+
             sheet10_list[k][ 1] = ico
             sheet10_list[k][ 2] = dztot  # this is depth
             sheet10_list[k][ 3] = sedload
@@ -1277,20 +1008,11 @@ class TabOne(wx.Panel):
             num_output_list[k][ 17] = corelbg[i]
             num_output_list[k][ 18] = coretbg[i]
             num_output_list[k][ 19] = 10000 * coretin[i]
-            '''print "---------coret-------"
-            print i
-            print coretbg[i]
-            print coretin[i]
-            print "---------coret-------"'''
-            #print 90 * coretbg[i] / (coretbg[i] + 10000 * coretin[i])
-            #print "------"'''
-            #print k
-            #print num_output_list[k][ 20]
+
             if coretbg[i] + coretin[i] > 0:
                 num_output_list[k][ 20] = 90 * coretbg[i] / (coretbg[i] + 10000 * coretin[i])
 
-            #print k
-            #print num_output_list[k][20]
+
             k = k + 1
         for k in range(2,501):
             comp_list[k][1] = " "
@@ -1567,13 +1289,6 @@ class TabOne(wx.Panel):
         data_list[32][ 9] = round(totC50, 1)
         for ico in reversed(range(1, nocohort+1)):
             k = k + 1
-            '''print totd
-            print dzdd[ico]
-            print tlbgbio
-            print droot[ico]
-            print totsom
-            print BGB[ico]
-            print "################"'''
             totd = totd + dzdd[ico]
             tlbgbio = tlbgbio + droot[ico]
             totsom = totsom + BGB[ico]
@@ -1651,7 +1366,7 @@ class TabOne(wx.Panel):
         for i in range(0, len(comp_list)):
             for j in range(0, len(comp_list[i])):
                 compGrid.SetCellValue(i, j, str(comp_list[i][j]))
-        #print len(num_output_list)
+
         for i in range(0, len(num_output_list)):
             for j in range(0, 30):
                 numGrid.SetCellValue(i, j, str(num_output_list[i][j]))
@@ -1664,17 +1379,11 @@ class TabOne(wx.Panel):
         for i in range(0, len(rootdist_list)):
             for j in range(0, len(rootdist_list[i])):
                 rootdistGrid.SetCellValue(i, j, str(rootdist_list[i][j]))
-        #print comp_list
-        #comp_year_list.append(0)
-        #comp_ind_time.append(0.06)
         for i in range(2, 83):
             comp_elev_list.append(comp_list[i][17])
         for i in range(2, 83):
             comp_biomass_list.append(comp_list[i][18])
         for i in range(2, 102):
-            #for j in range(0, len(comp_list[i])):
-                #comp_elev_list.append(comp_list[i][16])
-                #comp_biomass_list.append(comp_list[i][17])
 
                 comp_year_list.append(comp_list[i][1])
                 comp_ind_time.append(comp_list[i][5])
@@ -1682,15 +1391,13 @@ class TabOne(wx.Panel):
                 comp_fourth_biomass_list.append(comp_list[i][4])
                 comp_msl_list.append(comp_list[i][12])
                 comp_marshele_list.append(comp_list[i][15])
-        #print "---data list---"
-        #print data_list
+
         for i in range(2, 200):
             if data_list[i][0] != '':
                IO_data_1.append(data_list[i][0])
             if data_list[i][1] != '':
                IO_data_2.append(data_list[i][1])
-        #print IO_data_1
-        #print IO_data_2
+
         for i in range(3, 43):
             if num_output_list[i][20] != '':
                num_sed_depth_1.append(num_output_list[i][16])
@@ -1699,8 +1406,7 @@ class TabOne(wx.Panel):
             if num_output_list[i][20] != '':
                num_sed_depth_2.append(num_output_list[i][16])
                num_sed_org_2.append(num_output_list[i][20])
-        #print comp_year_list
-        #print comp_biomass_list
+
         matplotlib.rc('xtick',labelsize=15)
         matplotlib.rc('ytick', labelsize=15)
         plt.rc('axes', labelsize=15)
@@ -1713,44 +1419,31 @@ class TabOne(wx.Panel):
         ax.set_facecolor('#edeeff')
         ax.autoscale(enable=True)
         ax.yaxis.grid(True)
-        #ax.set_facecolor('red')
-        #plt.xticks([1, 20, 40, 60, 80, 100], ['0', '20', '40', '60', '80', '100'])
-        #image1 = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), folder, 'first.png')
-        '''try:
 
-            image = wx.Image(image1, wx.BITMAP_TYPE_ANY)
-        except IOError:
-            image = wx.Image('asset/first.png', wx.BITMAP_TYPE_ANY)
-        '''
-        #print join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'fifth.png')
-        #try:
+
+
         plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'fifth.png'),facecolor = '#edeeff', dpi=96)
-        #except:
-            #plt.savefig('asset/fifth.png', facecolor='#edeeff', dpi=96)
+
         plt.close()
         matplotlib.rc('ytick', labelsize=12)
         plt.axis([0, 100, 0, 1600])
-        #print comp_year_list
-        #print comp_fourth_biomass_list
+
         plt.plot(comp_year_list, comp_fourth_biomass_list)
-        #plt.plot(comp_elev_list, comp_biomass_list)
+
         plt.xlabel("time (yrs)")
         plt.ylabel("Standing Biomass (g/m2)")
-        #plt.rc('axes', labelsize=20)
+
         ax = plt.gca()
         ax.set_facecolor('#edeeff')
         ax.autoscale(enable=True)
         ax.yaxis.grid(True)
-        #plt.xticks([1, 20, 40, 60, 80, 100], ['0', '20', '40', '60', '80', '100'])
-        #try:
+
         plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'fourth.png'),facecolor = '#edeeff')
-        #except:
-            #plt.savefig('asset/fourth.png',facecolor = '#edeeff')
+
         plt.close()
         matplotlib.rc('ytick', labelsize=12)
         plt.axis([0, 300, 0, 1600])
-        #print comp_elev_list
-        #print comp_biomass_list
+
         plt.plot(comp_elev_list, comp_biomass_list)
         plt.xlabel("Elevation (cm) Rel to MSL")
         plt.ylabel("Standing Biomass (g/m2)")
@@ -1758,12 +1451,9 @@ class TabOne(wx.Panel):
         ax.set_facecolor('#edeeff')
         ax.autoscale(enable=True)
         ax.yaxis.grid(True)
-        #plt.xticks([1, 20, 40, 60, 80, 100], ['0', '20', '40', '60', '80', '100'])
-        #try:
+
         plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'first.png'),facecolor = '#edeeff')
-        #except:
-            #plt.savefig('asset/first.png',facecolor = '#edeeff')
-        #plt.savefig('asset/first.png',facecolor = '#edeeff')
+
         plt.close()
         matplotlib.rc('xtick',labelsize=15)
         matplotlib.rc('ytick', labelsize=15)
@@ -1775,13 +1465,9 @@ class TabOne(wx.Panel):
         ax.set_facecolor('#edeeff')
         ax.autoscale(enable=True)
         ax.yaxis.grid(True)
-        # set the locations and labels of the xticks
-        #plt.xticks([1,20,40,60,80,100], ['0', '20', '40', '60', '80', '100'])
-        #try:
+
         plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'second.png'),facecolor = '#edeeff')
-        #except:
-            #plt.savefig('asset/second.png',facecolor = '#edeeff')
-        #plt.savefig('asset/second.png',facecolor = '#edeeff')
+
         plt.close()
 
         plt.axis([0, 100, 0, 70])
@@ -1792,95 +1478,61 @@ class TabOne(wx.Panel):
         ax.set_facecolor('#edeeff')
         ax.autoscale(enable=True)
         ax.yaxis.grid(True)
-        #plt.xticks([1, 20, 40, 60, 80, 100], ['0', '20', '40', '60', '80', '100'])
-        #try:
+
         plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'third.png'),facecolor = '#edeeff')
-        #except:
-            #plt.savefig('asset/third.png',facecolor = '#edeeff')
-        #plt.savefig('asset/third.png',facecolor = '#edeeff')
+
         plt.close()
         matplotlib.rc('ytick', labelsize=12)
         plt.axis([0, 100, 0, 50])
 
-        #print comp_year_list
-        #print comp_fourth_biomass_list
+
         pres = plt.plot(num_sed_depth_1, num_sed_org_1, 'b', label="Present")
         fut = plt.plot(num_sed_depth_2, num_sed_org_2, 'r', label = "Future")
-        '''print num_sed_org_1
-        print num_sed_depth_1
-        print num_sed_org_2
-        print num_sed_depth_2'''
-        #plt.plot(comp_elev_list, comp_biomass_list)
+
         plt.xlabel("Sediment Depth (cm)")
         plt.ylabel("Sediment Org. Matter (%)")
-        #plt.rc('axes', labelsize=20)
+
         ax = plt.gca()
         ax.set_facecolor('#edeeff')
         ax.autoscale(enable=True)
         ax.yaxis.grid(True)
-        # Create a legend for the first line.
-        #first_legend = plt.legend(handles=[pres])
 
-        # Add the legend manually to the current Axes.
-        #ax = plt.gca().add_artist(first_legend)
-
-        # Create another legend for the second line.
-        #plt.legend(handles=[fut], loc=4)
-        #plt.xticks([1, 20, 40, 60, 80, 100], ['0', '20', '40', '60', '80', '100'])
-        #try:
         plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'sixth.png'),facecolor = '#edeeff')
-        #except:
-            #plt.savefig('asset/sixth.png',facecolor = '#edeeff')
+
         plt.close()
         title_lbl = wx.StaticText(self.rupPan, -1, pos=(370, 10),size=(500,10))
         title_font = wx.Font(14, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
         title_lbl.SetFont(title_font)
         title_lbl.SetLabel(lab)
-        #self.afterFill()
-        #parent = self.GetParent()
-        #print self
-        #print "-----"
-        #print parent
-        #self.Update()
-        #self.Refresh()
+
         self.drawImages()
     def onRadioButton(self, e):
-        #print "here"
+
         if e is None:
             lab = 'North Inlet, SC'
         else:
             cb_r = e.GetEventObject()
             lab = cb_r.GetLabel()
-        #self.rupPan.SetBackgroundColour("red")
-        #print cb_r.GetLabel()
-        #cb_r = e.GetEventObject()
-        #self.SetTitle(cb_r.GetLabel())
-        # self.rupPan.ruplbl.SetLabel(cb_r.GetLabel())
-        ##print TabOne.filePath
-        ##print cb_r.GetLabel()
+
 
         if lab == 'North Inlet, SC':
-            #print 'North'
-            #object1 = TabTwo("abcd")
-            #sum = object1.rows
-            ##print texts[81]
+
             cb1.SetValue(False)
             cb2.SetValue(False)
             cb3.SetValue(False)
             cb4.SetValue(True)
 
-            #k_4=k_2= k_3= k_5= k_6= k_7=k_8=k_9=[]
+
             ##print data_texts
             w, h = 8, 14
             data_list = []
-            #del data_list[:]
+
             myGrid.ClearGrid()
-            ##print data_list
+
             data_list = [["" for x in range(w)] for y in range(h)]
-            ##print data_list
+
             ind=ind_1=ind_2=ind_3=0
-            ##print data_texts[62]
-            #for i in range(62, 75):
+
             for i in range(62, 76):
                 #MSL - let 1996 be t0
                 #data_list
@@ -1888,32 +1540,25 @@ class TabOne(wx.Panel):
                 data_list[ind][0] = data_texts[i][5]
                 data_list[ind][1] = data_texts[i][6]
                 ind=ind+1
-                #k_2.append(float(data_texts[i][5]))
-                #k_3.append(float(data_texts[i][6]))
 
-            #print data_list
+
+
             for i in range(80, 89):
-                #MSL - let 1996 be t0
-                ##print data_texts[i]
+
                 data_list[ind_1][2] = str(float(data_texts[i][0]) - 1996)
                 data_list[ind_1][3] = str(float(data_texts[i][1]) * 100)
                 ind_1=ind_1+1
-                #k_4.append(float(data_texts[i][0]) - 1996)
-                #k_5.append(float(data_texts[i][1]) * 100)
-                ##print k_5 # convert to cm
+
             for i in range(17,31):
                 data_list[ind_2][4] = data_texts[i][9]
                 data_list[ind_2][5] = data_texts[i][10]
                 ind_2 = ind_2 + 1
-                #k_6.append(float(data_texts[i][9]))
-                #k_7.append(float(data_texts[i][10]))
+
             for i in range(18,32):
                 data_list[ind_3][6] = str(float(data_texts[i][14]) - 1996)
                 data_list[ind_3][7] = str(float(data_texts[i][15]))
                 ind_3=ind_3+1
-                #k_8.append(float(data_texts[i][14])-1996)
-                #k_9.append(float(data_texts[i][15]))
-            ##print data_list
+
             myGrid.SetCellValue(0, 0, "Hello")
             for i in range(0,len(data_list)):
                 for j in range(0,len(data_list[i])):
@@ -1943,30 +1588,25 @@ class TabOne(wx.Panel):
             epi_recoveryTime.SetLabel("10")
             epi_addElevation.SetLabel("10")
         if lab == 'Grand Bay, MS':
-            #print 'Grand'
+
             cb1.SetValue(False)
             cb2.SetValue(False)
             cb3.SetValue(False)
             cb4.SetValue(False)
-            #object1 = TabTwo("abcd")
-            #sum = object1.rows
-            ##print texts[81]
+
 
             w, h = 8, 59
             data_list = []
-            #del data_list[:]
+
             myGrid.ClearGrid()
 
             data_list = [["" for x in range(w)] for y in range(h)]
-            ##print data_list
+
             ind = 0
             ind_1 = 0
             ind_2 = 0
             ind_3 = 0
-            ##print data_texts[61]
-            ##print data_texts[61][5]
-            ##print data_texts[61][6]
-            # for i in range(62, 75):
+
             for i in range(2, 61):
                 # MSL - let 1996 be t0
                 # data_list
@@ -1974,32 +1614,27 @@ class TabOne(wx.Panel):
                 data_list[ind][0] = str(data_texts[i][5])
                 data_list[ind][1] = str(data_texts[i][6])
                 ind = ind + 1
-                # k_2.append(float(data_texts[i][5]))
-                # k_3.append(float(data_texts[i][6]))
+
             for i in range(41, 79):
                 # MSL - let 1996 be t0
-                ##print data_texts[i]
+
                 data_list[ind_1][2] = str(float(data_texts[i][0]) - 2013)
                 data_list[ind_1][3] = str(float(data_texts[i][1]))
                 ind_1 = ind_1 + 1
-                # k_4.append(float(data_texts[i][0]) - 1996)
-                # k_5.append(float(data_texts[i][1]) * 100)
-                # #print k_5 # convert to cm
+
             for i in range(2, 14):
                 data_list[ind_2][4] = data_texts[i][9]
                 data_list[ind_2][5] = data_texts[i][10]
                 ind_2 = ind_2 + 1
-                # k_6.append(float(data_texts[i][9]))
-                # k_7.append(float(data_texts[i][10]))
+
             for i in range(2, 15):
                 if data_texts[i][15] > -30 :
                     data_list[ind_3][6] = data_texts[i][14]
-                #data_list[ind_3][6] = str(float(data_texts[i][14]) - 1996)
+
                 data_list[ind_3][7] = data_texts[i][15]
                 ind_3 = ind_3 + 1
-                # k_8.append(float(data_texts[i][14])-1996)
-                # k_9.append(float(data_texts[i][15]))'''
-            ##print data_list
+
+
             for i in range(0, len(data_list)):
                 for j in range(0, len(data_list[i])):
                     myGrid.SetCellValue(i, j, data_list[i][j])
@@ -2027,45 +1662,22 @@ class TabOne(wx.Panel):
             epi_repeat.SetLabel("20")
             epi_recoveryTime.SetLabel("10")
             epi_addElevation.SetLabel("10")
-            '''items=[['a','b','c']]
-            file_name = "C:\Users\VKOTHA\Downloads\Temp.xls"
-            #filename = MainFrame.filePath
-            book = xlrd.open_workbook(file_name, formatting_info=1)
-            sheetname = "Numerical_Output"
-            # sheetname = "Data"
-            sheet = book.sheet_by_name(sheetname)
-            rows, cols = sheet.nrows, sheet.ncols
-            #print rows
-            #print cols
-            comments, texts = XG.ReadExcelCOM(file_name, sheetname, rows, cols)
-            xlsGrid = XG.XLSGrid(self)
-            #print book
-            #print sheet
-            #print texts
-            #print comments
-            xlsGrid.PopulateGrid(book, sheet, items, comments)
-            ##print k_2'''
+
 
         if lab == 'Plum Island, MA':
-            #print 'Plum'
-            #object1 = TabTwo("abcd")
-            #sum = object1.rows
-            ##print texts[81]
+
             cb1.SetValue(False)
             cb2.SetValue(False)
             cb3.SetValue(False)
             cb4.SetValue(False)
 
             w, h = 8, 51
-            #del data_list[:]
+
             myGrid.ClearGrid()
             data_list = [["" for x in range(w)] for y in range(h)]
-            ##print data_list
+
             ind = ind_1 = ind_2 = ind_3 = 0
-            ##print data_texts[61]
-            ##print data_texts[61][5]
-            ##print data_texts[61][6]
-            # for i in range(62, 75):
+
             for i in range(78, 99):
                 # MSL - let 1996 be t0
                 # data_list
@@ -2073,36 +1685,20 @@ class TabOne(wx.Panel):
                 data_list[ind][0] = str(data_texts[i][5])
                 data_list[ind][1] = str(data_texts[i][6])
                 ind = ind + 1
-                # k_2.append(float(data_texts[i][5]))
-                # k_3.append(float(data_texts[i][6]))
+
             for i in range(90, 141):
                 # MSL - let 1996 be t0
-                ##print data_texts[i]
+
                 data_list[ind_1][2] = str(float(data_texts[i][0]) - 2013)
                 data_list[ind_1][3] = str(float(data_texts[i][1]))
                 ind_1 = ind_1 + 1
-                # k_4.append(float(data_texts[i][0]) - 1996)
-                # k_5.append(float(data_texts[i][1]) * 100)
-                # #print k_5 # convert to cm
-            '''for i in range(2, 14):
-                data_list[ind_2][4] = data_texts[i][9]
-                data_list[ind_2][5] = data_texts[i][10]
-                ind_2 = ind_2 + 1'''
-                # k_6.append(float(data_texts[i][9]))
-                # k_7.append(float(data_texts[i][10]))
+
+
             for i in range(33, 45):
                 data_list[ind_2][6] = data_texts[i][14]
                 data_list[ind_2][7] = data_texts[i][15]
                 ind_2 = ind_2 + 1
-            '''for i in range(2, 15):
-                if data_texts[i][15] > -30 :
-                    data_list[ind_3][6] = data_texts[i][14]
-                #data_list[ind_3][6] = str(float(data_texts[i][14]) - 1996)
-                data_list[ind_3][7] = data_texts[i][15]
-                ind_3 = ind_3 + 1'''
-                # k_8.append(float(data_texts[i][14])-1996)
-                # k_9.append(float(data_texts[i][15]))'''
-            #print data_list
+
             for i in range(0, len(data_list)):
                 for j in range(0, len(data_list[i])):
                     myGrid.SetCellValue(i, j, data_list[i][j])
@@ -2142,44 +1738,35 @@ class TabOne(wx.Panel):
             cb4.SetValue(False)
             w, h = 8, 75
             data_list = []
-            #del data_list[:]
+
             myGrid.ClearGrid()
             data_list = [["" for x in range(w)] for y in range(h)]
-            ##print data_list
+
             ind = ind_1 = ind_2 = ind_3 = 0
-            ##print data_texts[61]
-            ##print data_texts[61][5]
-            ##print data_texts[61][6]
-            # for i in range(62, 75):
+
             for i in range(2, 77):
-                # MSL - let 1996 be t0
-                # data_list
-                ##print data_texts[i][7]
-                ##print data_texts[i][8]
+
                 data_list[ind][0] = str(data_texts[i][7])
                 data_list[ind][1] = str(data_texts[i][8])
                 ind = ind + 1
-                # k_2.append(float(data_texts[i][5]))
-                # k_3.append(float(data_texts[i][6]))
+
             for i in range(2, 40):
                 # MSL - let 1996 be t0
-                ##print data_texts[i]
+
                 data_list[ind_1][2] = str(float(data_texts[i][0]) - 2013)
                 data_list[ind_1][3] = str(float(data_texts[i][1]))
                 ind_1 = ind_1 + 1
-                # k_4.append(float(data_texts[i][0]) - 1996)
-                # k_5.append(float(data_texts[i][1]) * 100)
-                # #print k_5 # convert to cm
+
             for i in range(2, 14):
                 data_list[ind_2][4] = data_texts[i][11]
                 data_list[ind_2][5] = data_texts[i][12]
                 ind_2 = ind_2 + 1
-            #for i in range(2, 15):
+
             if data_texts[2][16] > -30 :
                 data_list[1][6] = data_texts[2][14]
-                #data_list[ind_3][6] = str(float(data_texts[i][14]) - 1996)
+
             data_list[1][7] = data_texts[2][16]
-            #print data_list
+
             for i in range(0, len(data_list)):
                 for j in range(0, len(data_list[i])):
                     myGrid.SetCellValue(i, j, data_list[i][j])
@@ -2208,34 +1795,26 @@ class TabOne(wx.Panel):
             epi_recoveryTime.SetLabel("10")
             epi_addElevation.SetLabel("10")
         if lab == 'Coon Isl, SFB':
-            #print 'Coon'
-            # object1 = TabTwo("abcd")
-            # sum = object1.rows
-            # #print texts[81]
+
             cb1.SetValue(False)
             cb2.SetValue(False)
             cb3.SetValue(False)
             cb4.SetValue(False)
             w, h = 8, 100
             data_list = []
-            # del data_list[:]
+
             myGrid.ClearGrid()
             data_list = [["" for x in range(w)] for y in range(h)]
-            # #print data_list
+
             ind = ind_1 = ind_2 = ind_3 = 0
-            # #print data_texts[61]
-            # #print data_texts[61][5]
-            # #print data_texts[61][6]
-            # for i in range(62, 75):
+
             for i in range(78, 178):
                 # MSL - let 1996 be t0
-                # data_list
-                # #print data_texts[i][7]
-                # #print data_texts[i][8]
+
                 data_list[ind][0] = str(data_texts[i][7])
                 data_list[ind][1] = str(data_texts[i][8])
                 ind = ind + 1
-            #print data_list
+
             for i in range(0, len(data_list)):
                 for j in range(0, len(data_list[i])):
                     myGrid.SetCellValue(i, j, data_list[i][j])
@@ -2264,10 +1843,7 @@ class TabOne(wx.Panel):
             epi_recoveryTime.SetLabel("10")
             epi_addElevation.SetLabel("10")
         if lab == 'Other Estuary':
-            #print 'Other'
-            # object1 = TabTwo("abcd")
-            # sum = object1.rows
-            # #print texts[81]
+
             myGrid.ClearGrid()
             phy_sea_level_forecast.SetLabel("100")
             phy_sea_level_start.SetLabel("0")
@@ -2304,52 +1880,15 @@ class TabOne(wx.Panel):
 class TabThree(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
-        #panel = wx.Panel(self)
-        #t = wx.StaticText(self, -1, "This is the third tab", (20, 20))
-        #try:
-            #imageFile = 'asset/Instructions.jpg'
-            #imageFile = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'Instructions.jpg')
 
-
-       # except:
-            #print "exceptinstr"
         imageFile = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset','Instructions.jpg')
 
-        #print imageFile
-        #imageFile = "C:\Users\VKOTHA\Downloads\Instructions.jpg"
-
-        #self.scrPan = wx.lib.scrolledpanel.ScrolledPanel(self.pan, style = wx.TAB_TRAVERSAL|wx.SUNKEN_BORDER, name="panel1")
-        #self.scrPan.SetAutoLayout(1)
-        #self.scrPan.SetupScrolling()
         png = wx.Image(imageFile, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         wx.StaticBitmap(self, -1, png, (5, 5), (png.GetWidth(), png.GetHeight()))
-        '''instr_png = wx.Image(imageFile, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        instr_bit = wx.StaticBitmap(imgPan, -1, instr_png, (5, 5), (instr_png.GetWidth(), instr_png.GetHeight()))
-        vbox_imgPan = wx.BoxSizer(wx.VERTICAL)
-        vbox_imgPan.Add(instr_bit)
-        imgPan.SetSizer(vbox_imgPan)'''
+
 
 
 class TabTwo(wx.Panel):
-    '''def __init__(self, parent):
-        wx.Panel.__init__(self, parent)
-        #t = wx.StaticText(self, -1, "This is the third tab", (20, 20))
-        filename = "C:\Users\VKOTHA\Downloads\Temp.xls"
-        #filename = MainFrame.filePath
-        book = xlrd.open_workbook(filename, formatting_info=1)
-        sheetname = "Numerical_Output"
-        #sheetname = "Data"
-        sheet = book.sheet_by_name(sheetname)
-        rows, cols = sheet.nrows, sheet.ncols
-        #global comments, texts
-        comments, texts= XG.ReadExcelCOM(filename, sheetname, rows, cols)
-        #global xlsGrid
-        xlsGrid = XG.XLSGrid(self)
-        xlsGrid.PopulateGrid(book, sheet, texts, comments)
-        ##print texts
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(xlsGrid, 1, wx.EXPAND, 5)
-        self.SetSizer(sizer)'''
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
         global numGrid
@@ -2386,22 +1925,11 @@ class TabTwo(wx.Panel):
 class TabFour(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
-        #t = wx.StaticText(self, -1, "This is the third tab", (20, 20))
-        #filename = "C:\Users\VKOTHA\Downloads\Temp.xls"
-        #try:
-        #print join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))),'asset','Temp.xls')
+
         fname =  join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))),'asset','Temp.xls')
         book = xlrd.open_workbook(fname, formatting_info=1)
-        '''except IOError:
-            fname = join(os.path.dirname(os.path.abspath(sys.argv[0])), 'asset', 'Temp.xls')
-            book = xlrd.open_workbook(fname, formatting_info=1)'''
-        #print os.path.abspath(sys.argv[0])
 
-        #print os.path.abspath("__file__")
-        #print fname
-        #print abspath(__file__)
-        #filename = MainFrame.filePath
-        #book = xlrd.open_workbook(fname, formatting_info=1)
+
         sheetname = "Data"
         sheet = book.sheet_by_name(sheetname)
         rows, cols = sheet.nrows, sheet.ncols
@@ -2416,28 +1944,7 @@ class TabFour(wx.Panel):
 class TabFive(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
-        # t = wx.StaticText(self, -1, "This is the third tab", (20, 20))
-        '''filename = "C:\Users\VKOTHA\Downloads\Temp.xls"
-        #filename = MainFrame.filePath
-        book = xlrd.open_workbook(filename, formatting_info=1)
-        sheetname = "IO_data"
-        # sheetname = "Data"
-        sheet = book.sheet_by_name(sheetname)
-        rows, cols = sheet.nrows, sheet.ncols
-        ##print rows
-        ##print cols
-        comments, texts = XG.ReadExcelCOM(filename, sheetname, rows, cols)
 
-
-        aaGrid = XG.XLSGrid(self)
-        ##print book
-        ##print sheet
-        ##print texts
-        ##print comments
-        aaGrid.PopulateGrid(book, sheet, texts, comments)
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(aaGrid, 1, wx.EXPAND, 5)
-        self.SetSizer(sizer)'''
         global myGrid
         myGrid = MyGrid(self, size=(100, 100))
         myGrid.CreateGrid(100, 8)
@@ -2449,14 +1956,7 @@ class TabFive(wx.Panel):
         myGrid.SetColLabelRenderer(5, TextLabelRenderer('', 0))
         myGrid.SetColLabelRenderer(6, TextLabelRenderer('Marsh Elevation', 2))
         myGrid.SetColLabelRenderer(7, TextLabelRenderer('', 0))
-        '''global myGrid
-        myGrid = gridlib.Grid(self)
-        myGrid.CreateGrid(100, 10)
-        #myGrid.SetColLabelSize(2)
-        myGrid.SetColLabelSize(0)
-        myGrid.SetCellSize(0, 0, 1, 3)
-        myGrid.SetCellValue(0, 0, "Yesterday")
-        myGrid.SetColLabelValue(0, "abcd")'''
+
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(myGrid, 1, wx.EXPAND)
 
@@ -2503,14 +2003,12 @@ class TabSeven(wx.Panel):
         compGrid.SetColLabelValue(21, "droot")
         compGrid.SetColLabelValue(22, "dzdd")
         compGrid.SetColLabelValue(23, "doabymo")
-        # compGrid.SetCellValue(i, j, str(comp_list[i][j]))
+
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(compGrid, 1, wx.EXPAND)
         self.SetSizer(sizer)
 class TabEight(wx.Panel):
-    '''def __init__(self, parent):
-        wx.Panel.__init__(self, parent)
-        t = wx.StaticText(self, -1, "This is the third tab", (20, 20))'''
+
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
         global inunGrid
@@ -2542,20 +2040,10 @@ class MySplashScreen(wx.SplashScreen):
 Create a splash screen widget.
     """
     def __init__(self, parent=None):
-        # This is a recipe to a the screen.
-        # Modify the following variables as necessary.
-        '''try:
-            #print "trybitmap"
-            #print join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'logo.jpg')
-            #plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'fifth.png'),facecolor = '#edeeff', dpi=96)
-            aBitmap = wx.Image(name=join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'logo.jpg')).ConvertToBitmap()
 
-        except:
-            #print "exceptbitmap"
-            aBitmap = wx.Image(name="asset/logo.jpg").ConvertToBitmap()'''
 
         aBitmap = wx.Image(name=join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset','logo.jpg')).ConvertToBitmap()
-        #aBitmap = wx.Image(name="asset/logo.jpg").ConvertToBitmap()
+
         splashStyle = wx.SPLASH_CENTRE_ON_SCREEN | wx.SPLASH_TIMEOUT
         splashDuration = 1000 # milliseconds
         # Call the constructor with the above arguments in exactly the
@@ -2569,11 +2057,7 @@ Create a splash screen widget.
 
     def OnExit(self, evt):
         self.Hide()
-        # MyFrame is the main frame.
-        #MyFrame = MyGUI(None, -1, "Hello from wxPython")
-        #app.SetTopWindow(MyFrame)
-        #MyFrame.Show(True)
-        # The program will freeze without this line.
+
         evt.Skip()  # Make sure the default handler runs too...
 class GifPanel(wx.Panel):
     """ class MyPanel creates a panel, inherits wx.Panel """
@@ -2591,20 +2075,13 @@ class GifPanel(wx.Panel):
         ag.Play()
 
 class MainFrame(wx.Frame):
-    #filePath = "MEM_file.xls"
-    #filePath = "test.xls"
-    #filePath = "C://Users/VKOTHA/Downloads/Temp.xls"
+
     def __init__(self):
         wx.Frame.__init__(self, None, size = (1200,650), title="MEM v6.0")
         # Create a panel and notebook (tabs holder)
-        #self.Centre()
-        #self.SetBackgroundColour('red')
+
         p = wx.Panel(self)
-        #self.SetDimensions(0, 0, 1200, 480)
-        #self.Show()
-        #print wx.GetDisplaySize()
-        #print wx.DefaultSize
-        #self.ShowFullScreen(True)
+
         nb = wx.Notebook(p)
 
         # Create the tab windows
@@ -2632,9 +2109,7 @@ class MainFrame(wx.Frame):
         nb.AddPage(tab9, "Sheet12")
         nb.AddPage(tab10, "Sheet15")
         nb.AddPage(tab5, "IO_data")
-        #nb.AddPage(tab6, "rootdist")
-        #nb.AddPage(tab7, "Computations")
-        #nb.AddPage(tab8, "Sheet12")
+
 
 
         # Set noteboook in a sizer to create the layout
@@ -2645,19 +2120,9 @@ class MainFrame(wx.Frame):
 
 def show_splash():
     # create, show and return the splash screen
-    '''try:
-        #print "tryshowsplash"
-        #print join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'logo.jpg')
-        # plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'fifth.png'),facecolor = '#edeeff', dpi=96)
-        #aBitmap = wx.Image(name=join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset','logo.jpg')).ConvertToBitmap()
-        bitmap = wx.Bitmap(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset','logo.jpg'))
 
-
-    except:
-        #print "exceptshowsplash"
-        bitmap = wx.Bitmap("asset/logo.jpg")'''
     bitmap = wx.Bitmap(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'logo.jpg'))
-    #bitmap = wx.Bitmap("asset/logo.jpg")
+
     splash = wx.SplashScreen(bitmap, wx.SPLASH_CENTRE_ON_SCREEN|wx.SPLASH_NO_TIMEOUT, 0, None, -1)
     splash.Show()
     return splash
