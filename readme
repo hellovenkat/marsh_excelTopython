@@ -8,4 +8,11 @@ Folder Structure
 
     marsh_excelTopython
     ├── asset                   # Image and Data files
-    └── src                     # Source files (.py files)
+    ├── src                     # Source files (.py files)
+    ├── spec_file.txt           # Libraries that are needed to be installed through 'conda'
+    └── requirements_pip.txt    # Libraries that are needed to be installed through 'pip'
+
+### Installing the required libraries and softwares
+
+Step 1: Install the Microsoft Visual C++ Compiler for Python 2.7 from the following [RL](https://www.microsoft.com/en-us/download/details.aspx?id=44266)
+    
