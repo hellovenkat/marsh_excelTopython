@@ -40,12 +40,14 @@ pip install http://sourceforge.net/projects/py2exe/files/latest/download?source=
 ### Generating the executable file
 
 Step 1: After installing all the required libraries, navigate to src folder in the activated environment 'myenv'.
+
 Now type
 ```
 python setup.py py2exe
 ```
 
 Step 2: With the command execution, two folders will be generated:
+
 * **build** - *In the src directory*
 * **dist** - *In the marsh_excelTopython directory*
 
