@@ -6,7 +6,12 @@ from distutils.core import setup
 import py2exe
 import matplotlib
 setup(
-    console=['excel_to_python.py'],
+    windows=[
+        {
+         "script":'excel_to_python.py',
+         #"icon_resources":[(0, "icon.ico")]
+         }
+        ],
     data_files=matplotlib.get_py2exe_datafiles(),
     options={'py2exe': {
             "dist_dir": join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))),'dist'),

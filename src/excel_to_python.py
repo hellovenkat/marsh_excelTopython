@@ -64,7 +64,6 @@ class TabOne(wx.Panel):
         self.SetBackgroundColour('#edeeff')
         vbox = wx.BoxSizer(wx.VERTICAL)
         hbox = wx.BoxSizer(wx.HORIZONTAL)
-
         #leftPan = wx.Panel(self)
         leftPan = wx.lib.scrolledpanel.ScrolledPanel(self)
         leftPan.SetupScrolling()
@@ -654,13 +653,13 @@ class TabOne(wx.Panel):
         # changed here
         Bden = (sorg[1] + krBGTR * RT + inorg[1]) / ((sorg[1] + krBGTR * RT) / k1 + inorg[1] / k2)
 
-        rootdist_list[3][2] = RT
-        rootdist_list[4][2] = kd
-        rootdist_list[5][2] = Rmax
-        rootdist_list[6][2] = Drmax
-        rootdist_list[7][2] = kr
-        rootdist_list[8][2] = omdr
-        rootdist_list[9][2] = BGTR
+        rootdist_list[0][0] = RT
+        rootdist_list[1][0] = kd
+        rootdist_list[2][0] = Rmax
+        rootdist_list[3][0] = Drmax
+        rootdist_list[4][0] = kr
+        rootdist_list[5][0] = omdr
+        rootdist_list[6][0] = BGTR
 
         #'************************************************
         if minwt == 0 and D[1] < 0:
@@ -1281,12 +1280,13 @@ class TabOne(wx.Panel):
         totC100 = totC100 / 50
         acr50 = acr50 / 50
         acr100 = acr100 / 50
-        data_list[26][ 9] = round((marshelev[100] - marshelev[50]) / 50, 2)
+        # wrong code----should be done
+        '''data_list[26][ 9] = round((marshelev[100] - marshelev[50]) / 50, 2)
         data_list[27][ 9] = round(refracC100 / 50, 1)
         data_list[28][ 9] = round(totC100, 1)
         data_list[30][ 9] = round((marshelev[51] - marshelev[1]) / 50, 2)
         data_list[31][ 9] = round(refracC50 / 50, 1)
-        data_list[32][ 9] = round(totC50, 1)
+        data_list[32][ 9] = round(totC50, 1)'''
         for ico in reversed(range(1, nocohort+1)):
             k = k + 1
             totd = totd + dzdd[ico]
@@ -1411,11 +1411,25 @@ class TabOne(wx.Panel):
         matplotlib.rc('ytick', labelsize=15)
         plt.rc('axes', labelsize=15)
         plt.axis([0, 100, 0, 200])
-        plt.plot(comp_year_list, comp_msl_list, comp_year_list, comp_marshele_list)
+
+
+        plot_msl, = plt.plot(comp_year_list, comp_msl_list, 'black')
+        plot_marshele, = plt.plot(comp_year_list, comp_marshele_list, 'green')
+
+        l1 = plt.legend([plot_marshele], ["Marsh Elevation"], loc=1, fontsize="xx-large", framealpha=0)
+        l2 = plt.legend([plot_msl], ["MSL"], loc=4, fontsize="xx-large")  # this removes l1 from the axes.
+        plt.gca().add_artist(l1)
+        '''fifth_plot_lines = []
+        fifth_plot_lines.append([plot_msl,plot_marshele])
+        fifth_legend = plt.legend(fifth_plot_lines[0], ["MSL","Marsh Elevation" ], loc=0, fontsize="xx-large")
+        plt.gca().add_artist(fifth_legend)'''
+
         plt.xlabel("time (yrs)")
         plt.ylabel("cm NAVD")
-        ax = plt.gca()
 
+
+
+        ax = plt.gca()
         ax.set_facecolor('#edeeff')
         ax.autoscale(enable=True)
         ax.yaxis.grid(True)
@@ -1447,6 +1461,17 @@ class TabOne(wx.Panel):
         plt.plot(comp_elev_list, comp_biomass_list)
         plt.xlabel("Elevation (cm) Rel to MSL")
         plt.ylabel("Standing Biomass (g/m2)")
+        IO_data_elev=[]
+        IO_data_biom=[]
+        for row in range(1,myGrid.GetNumberRows()):
+            temp_elev = myGrid.GetCellValue(row, 4)
+            temp_biom = myGrid.GetCellValue(row, 5)
+            if temp_elev!='':
+                IO_data_elev.append(float(temp_elev))
+            if temp_biom!='':
+                IO_data_biom.append(float(temp_biom))
+        plt.axvline(x=0)
+        plt.scatter(IO_data_elev, IO_data_biom, color='red')
         ax = plt.gca()
         ax.set_facecolor('#edeeff')
         ax.autoscale(enable=True)
@@ -1486,12 +1511,25 @@ class TabOne(wx.Panel):
         plt.axis([0, 100, 0, 50])
 
 
-        pres = plt.plot(num_sed_depth_1, num_sed_org_1, 'b', label="Present")
-        fut = plt.plot(num_sed_depth_2, num_sed_org_2, 'r', label = "Future")
+        pres, = plt.plot(num_sed_depth_1, num_sed_org_1, 'b', label="Present")
+        fut, = plt.plot(num_sed_depth_2, num_sed_org_2, 'r', label = "Future")
 
         plt.xlabel("Sediment Depth (cm)")
         plt.ylabel("Sediment Org. Matter (%)")
-
+        sixth_plot_lines = []
+        sixth_plot_lines.append([pres,fut])
+        sixth_legend = plt.legend(sixth_plot_lines[0], ["Present", "Future"], loc=1, fontsize="xx-large", framealpha=0)
+        plt.gca().add_artist(sixth_legend)
+        IO_data_Dsom = []
+        IO_data_LOI = []
+        for row in range(1, myGrid.GetNumberRows()):
+            temp_dsom = myGrid.GetCellValue(row, 0)
+            temp_Loi = myGrid.GetCellValue(row, 1)
+            if temp_dsom != '':
+                IO_data_Dsom.append(float(temp_dsom))
+            if temp_Loi != '':
+                IO_data_LOI.append(float(temp_Loi))
+        plt.scatter(IO_data_Dsom, IO_data_LOI, color='blue')
         ax = plt.gca()
         ax.set_facecolor('#edeeff')
         ax.autoscale(enable=True)
@@ -1528,7 +1566,7 @@ class TabOne(wx.Panel):
             data_list = []
 
             myGrid.ClearGrid()
-
+            abcd(self)
             data_list = [["" for x in range(w)] for y in range(h)]
 
             ind=ind_1=ind_2=ind_3=0
@@ -1559,10 +1597,10 @@ class TabOne(wx.Panel):
                 data_list[ind_3][7] = str(float(data_texts[i][15]))
                 ind_3=ind_3+1
 
-            myGrid.SetCellValue(0, 0, "Hello")
+
             for i in range(0,len(data_list)):
                 for j in range(0,len(data_list[i])):
-                    myGrid.SetCellValue(i, j, data_list[i][j])
+                    myGrid.SetCellValue(i+1, j, data_list[i][j])
             phy_sea_level_forecast.SetLabel("30")
             phy_sea_level_start.SetLabel("-1")
             phy_20th.SetLabel("0.2")
@@ -1599,7 +1637,7 @@ class TabOne(wx.Panel):
             data_list = []
 
             myGrid.ClearGrid()
-
+            abcd(self)
             data_list = [["" for x in range(w)] for y in range(h)]
 
             ind = 0
@@ -1637,7 +1675,7 @@ class TabOne(wx.Panel):
 
             for i in range(0, len(data_list)):
                 for j in range(0, len(data_list[i])):
-                    myGrid.SetCellValue(i, j, data_list[i][j])
+                    myGrid.SetCellValue(i+1, j, data_list[i][j])
             phy_sea_level_forecast.SetLabel("100")
             phy_sea_level_start.SetLabel("9")
             phy_20th.SetLabel("0.25")
@@ -1674,6 +1712,7 @@ class TabOne(wx.Panel):
             w, h = 8, 51
 
             myGrid.ClearGrid()
+            abcd(self)
             data_list = [["" for x in range(w)] for y in range(h)]
 
             ind = ind_1 = ind_2 = ind_3 = 0
@@ -1701,7 +1740,7 @@ class TabOne(wx.Panel):
 
             for i in range(0, len(data_list)):
                 for j in range(0, len(data_list[i])):
-                    myGrid.SetCellValue(i, j, data_list[i][j])
+                    myGrid.SetCellValue(i+1, j, data_list[i][j])
             phy_sea_level_forecast.SetLabel("40")
             phy_sea_level_start.SetLabel("1.8")
             phy_20th.SetLabel("0.2")
@@ -1740,6 +1779,7 @@ class TabOne(wx.Panel):
             data_list = []
 
             myGrid.ClearGrid()
+            abcd(self)
             data_list = [["" for x in range(w)] for y in range(h)]
 
             ind = ind_1 = ind_2 = ind_3 = 0
@@ -1769,7 +1809,7 @@ class TabOne(wx.Panel):
 
             for i in range(0, len(data_list)):
                 for j in range(0, len(data_list[i])):
-                    myGrid.SetCellValue(i, j, data_list[i][j])
+                    myGrid.SetCellValue(i+1, j, data_list[i][j])
             phy_sea_level_forecast.SetLabel("100")
             phy_sea_level_start.SetLabel("11")
             phy_20th.SetLabel("0.2")
@@ -1804,6 +1844,7 @@ class TabOne(wx.Panel):
             data_list = []
 
             myGrid.ClearGrid()
+            abcd(self)
             data_list = [["" for x in range(w)] for y in range(h)]
 
             ind = ind_1 = ind_2 = ind_3 = 0
@@ -1817,7 +1858,7 @@ class TabOne(wx.Panel):
 
             for i in range(0, len(data_list)):
                 for j in range(0, len(data_list[i])):
-                    myGrid.SetCellValue(i, j, data_list[i][j])
+                    myGrid.SetCellValue(i+1, j, data_list[i][j])
             phy_sea_level_forecast.SetLabel("100")
             phy_sea_level_start.SetLabel("106")
             phy_20th.SetLabel("0.24")
@@ -1845,6 +1886,7 @@ class TabOne(wx.Panel):
         if lab == 'Other Estuary':
 
             myGrid.ClearGrid()
+            abcd(self)
             phy_sea_level_forecast.SetLabel("100")
             phy_sea_level_start.SetLabel("0")
             phy_20th.SetLabel("0.2")
@@ -1947,7 +1989,7 @@ class TabFive(wx.Panel):
 
         global myGrid
         myGrid = MyGrid(self, size=(100, 100))
-        myGrid.CreateGrid(100, 8)
+        myGrid.CreateGrid(105, 8)
         myGrid.SetColLabelRenderer(0, TextLabelRenderer('SOM', 2))
         myGrid.SetColLabelRenderer(1, TextLabelRenderer('', 0))
         myGrid.SetColLabelRenderer(2, TextLabelRenderer('MSL', 2))
@@ -1956,7 +1998,11 @@ class TabFive(wx.Panel):
         myGrid.SetColLabelRenderer(5, TextLabelRenderer('', 0))
         myGrid.SetColLabelRenderer(6, TextLabelRenderer('Marsh Elevation', 2))
         myGrid.SetColLabelRenderer(7, TextLabelRenderer('', 0))
-
+        attr = wx.grid.GridCellAttr()
+        attr.SetTextColour("navyblue")
+        #attr.SetBackgroundColour("pink")
+        attr.SetFont(wx.Font(10, wx.SWISS, wx.NORMAL, wx.BOLD))
+        myGrid.SetRowAttr(0, attr)
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(myGrid, 1, wx.EXPAND)
 
@@ -1969,6 +2015,13 @@ class TabSix(wx.Panel):
         global rootdistGrid
         rootdistGrid = gridlib.Grid(self)
         rootdistGrid.CreateGrid(1000, 1000)
+        rootdistGrid.SetRowLabelValue(0, "RT")
+        rootdistGrid.SetRowLabelValue(1, "kd")
+        rootdistGrid.SetRowLabelValue(2, "Rmax")
+        rootdistGrid.SetRowLabelValue(3, "Drmax")
+        rootdistGrid.SetRowLabelValue(4, "kr")
+        rootdistGrid.SetRowLabelValue(5, "OM decay")
+        rootdistGrid.SetRowLabelValue(6, "BGTurn")
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(rootdistGrid, 1, wx.EXPAND)
         self.SetSizer(sizer)
@@ -2116,7 +2169,8 @@ class MainFrame(wx.Frame):
         sizer = wx.BoxSizer()
         sizer.Add(nb, 1, wx.EXPAND)
         p.SetSizer(sizer)
-
+        _icon = wx.Icon(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'icon.ico'), wx.BITMAP_TYPE_ICO)
+        self.SetIcon(_icon)
 
 def show_splash():
     # create, show and return the splash screen
@@ -2126,6 +2180,15 @@ def show_splash():
     splash = wx.SplashScreen(bitmap, wx.SPLASH_CENTRE_ON_SCREEN|wx.SPLASH_NO_TIMEOUT, 0, None, -1)
     splash.Show()
     return splash
+def abcd(self):
+        myGrid.SetCellValue(0, 0, "D (cm)")
+        myGrid.SetCellValue(0, 1, "LOI (%)")
+        myGrid.SetCellValue(0, 2, "year")
+        myGrid.SetCellValue(0, 3, "cm")
+        myGrid.SetCellValue(0, 4, "elev")
+        myGrid.SetCellValue(0, 5, "biom")
+        myGrid.SetCellValue(0, 6, "year")
+        myGrid.SetCellValue(0, 7, "cm")
 if __name__ == "__main__":
     app = wx.App()
     splash = show_splash()
