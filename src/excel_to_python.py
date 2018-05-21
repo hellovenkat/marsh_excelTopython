@@ -20,6 +20,8 @@ from matplotlib.backends.backend_wx import NavigationToolbar2Wx
 from matplotlib.figure import Figure
 wildcard = "Excel Workbook (*.xls)|*.xls|" \
             "All files (*.*)|*.*"
+GIFNames = ['C:/Users/VKOTHA/Desktop/marsh_excelToPython/asset/loader.gif']
+global data_1,data_2,data_3,data_4,data_5,data_6
 class MyGrid(grid.Grid, glr.GridWithLabelRenderersMixin):
     def __init__(self, *args, **kw):
         grid.Grid.__init__(self, *args, **kw)
@@ -95,7 +97,7 @@ class TabOne(wx.Panel):
         lbl.SetLabel(txt)
         vbox_leftPan.Add(lbl)
         fgs_phy = wx.FlexGridSizer(8, 3, 0, 0)
-        global phy_sea_level_forecast, phy_sea_level_start, phy_20th, phy_MTA, phy_Marsh_ele, phy_sus_minSed, phy_sus_org, phy_lt
+        global data1_label,data2_label,data3_label,data4_label,data5_label,data6_label,user_label,phy_sea_level_forecast, phy_sea_level_start, phy_20th, phy_MTA, phy_Marsh_ele, phy_sus_minSed, phy_sus_org, phy_lt
         phy_sea_level_forecast = wx.TextCtrl(leftPan, style=wx.TE_RIGHT, value="",size=(40, -1))
         phy_sea_level_start = wx.TextCtrl(leftPan, style=wx.TE_RIGHT, value="",size=(40, -1))
         phy_20th = wx.TextCtrl(leftPan, style=wx.TE_RIGHT, value="",size=(40, -1))
@@ -257,31 +259,78 @@ class TabOne(wx.Panel):
 
         hbox_rdownPan.Add(rbut_rdownPan, 0.90, wx.EXPAND | wx.ALL, 0)
         hbox_rdownPan.Add(rtext_rdownPan, 2, wx.EXPAND | wx.ALL, 0)
-
-        rdown_text1='''Metrics computed over the final 50 years of simulation
-   1.16 avg vert accretion (cm/yr)  last 50 yr of the simulation (yrs 51-100 average)
-   36.7 refractory c seq (g C/m2/yr) at the end of the simulation from top 50 cohorts
-   52.1 total C/m2 in belowground biomass in top 50 cohorts (50 years) (g C/m2/yr)'''
-
+        rtextfont_underline = wx.Font(11, wx.ROMAN, wx.FONTSTYLE_NORMAL, wx.NORMAL, underline=True)
+        rtextfont = wx.Font(11, wx.ROMAN, wx.FONTSTYLE_NORMAL, wx.NORMAL, underline=False)
+        rdown_text1 = '''Metrics computed over the final 50 years of simulation'''
         lbl_1 = wx.StaticText(rtext_rdownPan, -1, style=wx.ALIGN_CENTER)
-
-        rtextfont = wx.Font(11, wx.ROMAN, wx.FONTSTYLE_NORMAL, wx.NORMAL)
-        lbl_1.SetFont(rtextfont)
+        lbl_1.SetFont(rtextfont_underline)
         lbl_1.SetLabel(rdown_text1)
         rtext_vbox.Add((-1, 10))
         rtext_vbox.Add((-1, 10))
         rtext_vbox.Add(lbl_1, 0, wx.ALIGN_CENTER)
-        rtext_vbox.Add((-1, 25))
-        rdown_text2='''Metrics computed over the first 50 years of simulation
-   0.87 avg vert accretion (cm/yr)  first 50 yr of the simulation (yrs 1-50 average)
-41.4 refractory c seq (g C/m2/yr) at the mid point of the simulation from top 50 cohorts
-   58.1 total C/m2 in belowground biomass from top 50 cohorts (50 years) (g C/m2/yr)
-'''
-        lbl_2 = wx.StaticText(rtext_rdownPan, -1, style=wx.ALIGN_CENTER)
-        lbl_2.SetFont(rtextfont)
-        lbl_2.SetLabel(rdown_text2)
-        rtext_vbox.Add(lbl_2, 0, wx.ALIGN_CENTER)
+        rtext_vbox.Add((-1, 5))
+        data1_label = wx.StaticText(rtext_rdownPan, label="null", style=wx.ALIGN_CENTER)
+        data2_label = wx.StaticText(rtext_rdownPan, label="null", style=wx.ALIGN_CENTER)
+        data3_label = wx.StaticText(rtext_rdownPan, label="null", style=wx.ALIGN_CENTER)
+        data4_label = wx.StaticText(rtext_rdownPan, label="null", style=wx.ALIGN_CENTER)
+        data5_label = wx.StaticText(rtext_rdownPan, label="null", style=wx.ALIGN_CENTER)
+        data6_label = wx.StaticText(rtext_rdownPan, label="null", style=wx.ALIGN_CENTER)
+        data1_label.SetFont(rtextfont)
+        data2_label.SetFont(rtextfont)
+        data3_label.SetFont(rtextfont)
+        data4_label.SetFont(rtextfont)
+        data5_label.SetFont(rtextfont)
+        data6_label.SetFont(rtextfont)
 
+        text1_label = wx.StaticText(rtext_rdownPan, label=" avg vert accretion (cm/yr)  last 50 yr of the simulation (yrs 51-100 average)", style=wx.ALIGN_CENTER)
+        text2_label = wx.StaticText(rtext_rdownPan, label=" refractory c seq (g C/m2/yr) at the end of the simulation from top 50 cohorts", style=wx.ALIGN_CENTER)
+        text3_label = wx.StaticText(rtext_rdownPan, label=" total C/m2 in belowground biomass in top 50 cohorts (50 years) (g C/m2/yr)", style=wx.ALIGN_CENTER)
+        text4_label = wx.StaticText(rtext_rdownPan, label=" avg vert accretion (cm/yr)  first 50 yr of the simulation (yrs 1-50 average)", style=wx.ALIGN_CENTER)
+        text5_label = wx.StaticText(rtext_rdownPan, label=" refractory c seq (g C/m2/yr) at the mid point of the simulation from top 50 cohorts", style=wx.ALIGN_CENTER)
+        text6_label = wx.StaticText(rtext_rdownPan, label=" total C/m2 in belowground biomass from top 50 cohorts (50 years) (g C/m2/yr)", style=wx.ALIGN_CENTER)
+        text1_label.SetFont(rtextfont)
+        text2_label.SetFont(rtextfont)
+        text3_label.SetFont(rtextfont)
+        text4_label.SetFont(rtextfont)
+        text5_label.SetFont(rtextfont)
+        text6_label.SetFont(rtextfont)
+
+        txt_Pan1 = wx.BoxSizer(wx.HORIZONTAL)
+        txt_Pan1.Add(data1_label)
+        txt_Pan1.Add(text1_label)
+        rtext_vbox.Add(txt_Pan1, 0,wx.ALIGN_CENTER, wx.ALL, 5)
+        txt_Pan2 = wx.BoxSizer(wx.HORIZONTAL)
+        txt_Pan2.Add(data2_label)
+        txt_Pan2.Add(text2_label)
+        rtext_vbox.Add(txt_Pan2, 0,wx.ALIGN_CENTER, wx.ALL, 5)
+
+        txt_Pan3 = wx.BoxSizer(wx.HORIZONTAL)
+        txt_Pan3.Add(data3_label)
+        txt_Pan3.Add(text3_label)
+        rtext_vbox.Add(txt_Pan3, 0,wx.ALIGN_CENTER, wx.ALL, 5)
+
+
+        rdown_text2='''Metrics computed over the first 50 years of simulation'''
+        lbl_2 = wx.StaticText(rtext_rdownPan, -1, style=wx.ALIGN_CENTER)
+        lbl_2.SetFont(rtextfont_underline)
+        lbl_2.SetLabel(rdown_text2)
+        rtext_vbox.Add((-1, 20))
+        rtext_vbox.Add(lbl_2, 0,wx.ALIGN_CENTER, wx.ALIGN_CENTER)
+        rtext_vbox.Add((-1, 5))
+        txt_Pan4 = wx.BoxSizer(wx.HORIZONTAL)
+        txt_Pan4.Add(data4_label)
+        txt_Pan4.Add(text4_label)
+        rtext_vbox.Add(txt_Pan4, 0,wx.ALIGN_CENTER, wx.ALL, 5)
+
+        txt_Pan5 = wx.BoxSizer(wx.HORIZONTAL)
+        txt_Pan5.Add(data5_label)
+        txt_Pan5.Add(text5_label)
+        rtext_vbox.Add(txt_Pan5, 0,wx.ALIGN_CENTER, wx.ALL, 5)
+
+        txt_Pan6 = wx.BoxSizer(wx.HORIZONTAL)
+        txt_Pan6.Add(data6_label)
+        txt_Pan6.Add(text6_label)
+        rtext_vbox.Add(txt_Pan6, 0,wx.ALIGN_CENTER, wx.ALL, 5)
         rtext_rdownPan.SetSizer(rtext_vbox)
         vbox.Add(hbox_rdownPan, 1, wx.EXPAND | wx.ALL, 0)
         rbut_vbox = wx.BoxSizer(wx.VERTICAL)
@@ -389,9 +438,17 @@ class TabOne(wx.Panel):
         #app = wx.App()
         MainFrame().Show()
         #app.MainLoop()
+    def changeVal(self,data_1, data_2 , data_3, data_4, data_5, data_6):
+        data1_label.SetLabel(str(data_1))
+        data2_label.SetLabel(str(data_2))
+        data3_label.SetLabel(str(data_3))
+        data4_label.SetLabel(str(data_4))
+        data5_label.SetLabel(str(data_5))
+        data6_label.SetLabel(str(data_6))
     def onCalculate(self,e,lab):
         MySplash = MySplashScreen()
         MySplash.Show()
+
 
         BGB = [0] * 1801
         SedD = [0] * 1801
@@ -1281,12 +1338,12 @@ class TabOne(wx.Panel):
         acr50 = acr50 / 50
         acr100 = acr100 / 50
         # wrong code----should be done
-        '''data_list[26][ 9] = round((marshelev[100] - marshelev[50]) / 50, 2)
-        data_list[27][ 9] = round(refracC100 / 50, 1)
-        data_list[28][ 9] = round(totC100, 1)
-        data_list[30][ 9] = round((marshelev[51] - marshelev[1]) / 50, 2)
-        data_list[31][ 9] = round(refracC50 / 50, 1)
-        data_list[32][ 9] = round(totC50, 1)'''
+        data_1 = round((marshelev[100] - marshelev[50]) / 50, 2)
+        data_2 = round(refracC100 / 50, 1)
+        data_3 = round(totC100, 1)
+        data_4 = round((marshelev[51] - marshelev[1]) / 50, 2)
+        data_5 = round(refracC50 / 50, 1)
+        data_6 = round(totC50, 1)
         for ico in reversed(range(1, nocohort+1)):
             k = k + 1
             totd = totd + dzdd[ico]
@@ -1417,7 +1474,7 @@ class TabOne(wx.Panel):
         plot_marshele, = plt.plot(comp_year_list, comp_marshele_list, 'green')
 
         l1 = plt.legend([plot_marshele], ["Marsh Elevation"], loc=1, fontsize="xx-large", framealpha=0)
-        l2 = plt.legend([plot_msl], ["MSL"], loc=4, fontsize="xx-large")  # this removes l1 from the axes.
+        l2 = plt.legend([plot_msl], ["MSL"], loc=4, fontsize="xx-large", framealpha=0)  # this removes l1 from the axes.
         plt.gca().add_artist(l1)
         '''fifth_plot_lines = []
         fifth_plot_lines.append([plot_msl,plot_marshele])
@@ -1427,6 +1484,17 @@ class TabOne(wx.Panel):
         plt.xlabel("time (yrs)")
         plt.ylabel("cm NAVD")
 
+
+        IO_data_marsh_elev_year=[]
+        IO_data_marsh_elev_cm=[]
+        for row in range(1,myGrid.GetNumberRows()):
+            temp_marsh_elev_year = myGrid.GetCellValue(row, 6)
+            temp_marsh_elev_cm = myGrid.GetCellValue(row, 7)
+            if temp_marsh_elev_year!='' and temp_marsh_elev_cm!='':
+                IO_data_marsh_elev_year.append(float(temp_marsh_elev_year))
+            #if temp_marsh_elev_cm!='':
+                IO_data_marsh_elev_cm.append(float(temp_marsh_elev_cm))
+        plt.scatter(IO_data_marsh_elev_year, IO_data_marsh_elev_cm, color='green')
 
 
         ax = plt.gca()
@@ -1542,7 +1610,7 @@ class TabOne(wx.Panel):
         title_font = wx.Font(14, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
         title_lbl.SetFont(title_font)
         title_lbl.SetLabel(lab)
-
+        self.changeVal(data_1, data_2 , data_3, data_4, data_5, data_6)
         self.drawImages()
     def onRadioButton(self, e):
 
@@ -1922,12 +1990,17 @@ class TabOne(wx.Panel):
 class TabThree(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
+        #Pan = wx.lib.scrolledpanel.ScrolledPanel(self)
+        #Pan.SetupScrolling()
+        #siz = wx.BoxSizer(wx.VERTICAL)
 
         imageFile = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset','Instructions.jpg')
 
         png = wx.Image(imageFile, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         wx.StaticBitmap(self, -1, png, (5, 5), (png.GetWidth(), png.GetHeight()))
+        #siz.Add(k, 1, wx.EXPAND)
 
+        #self.SetSizer(siz)
 
 
 class TabTwo(wx.Panel):
@@ -2140,11 +2213,8 @@ class MainFrame(wx.Frame):
         # Create the tab windows
         tab5 = TabFive(nb)
         tab4 = TabFour(nb)
-
         tab2 = TabTwo(nb)
         tab3 = TabThree(nb)
-
-
         tab6 = TabSix(nb)
         tab7 = TabSeven(nb)
         tab8 = TabEight(nb)
@@ -2157,7 +2227,7 @@ class MainFrame(wx.Frame):
         nb.AddPage(tab3, "Instructions")
         nb.AddPage(tab7, "Computations")
         nb.AddPage(tab6, "rootdist")
-        #nb.AddPage(tab8, "Inundation Time")
+        nb.AddPage(tab8, "Inundation Time")
         nb.AddPage(tab4, "Data")
         nb.AddPage(tab9, "Sheet12")
         nb.AddPage(tab10, "Sheet15")
@@ -2168,6 +2238,23 @@ class MainFrame(wx.Frame):
         # Set noteboook in a sizer to create the layout
         sizer = wx.BoxSizer()
         sizer.Add(nb, 1, wx.EXPAND)
+
+#        wx.Panel.__init__(self, parent, -1)
+
+        #sizer = wx.FlexGridSizer(2,3,5,5)
+
+        '''for name in GIFNames:
+            ani = wx.animate.Animation(name)
+            ctrl = wx.animate.AnimationCtrl(self, -1, ani)
+            ctrl.SetUseWindowBackgroundColour()
+            ctrl.Play()
+
+            sizer.AddF(ctrl, wx.SizerFlags().Border(wx.ALL, 10))
+
+        border = wx.BoxSizer()
+        border.AddF(sizer, wx.SizerFlags(1).Expand().Border(wx.ALL, 20))
+        self.SetSizer(border)'''
+
         p.SetSizer(sizer)
         _icon = wx.Icon(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'icon.ico'), wx.BITMAP_TYPE_ICO)
         self.SetIcon(_icon)
