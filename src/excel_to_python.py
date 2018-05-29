@@ -20,7 +20,6 @@ from matplotlib.backends.backend_wx import NavigationToolbar2Wx
 from matplotlib.figure import Figure
 wildcard = "Excel Workbook (*.xls)|*.xls|" \
             "All files (*.*)|*.*"
-GIFNames = ['C:/Users/VKOTHA/Desktop/marsh_excelToPython/asset/loader.gif']
 global data_1,data_2,data_3,data_4,data_5,data_6
 class MyGrid(grid.Grid, glr.GridWithLabelRenderersMixin):
     def __init__(self, *args, **kw):
@@ -371,6 +370,7 @@ class TabOne(wx.Panel):
 
 
         hbox.Add(vbox, 3, wx.EXPAND | wx.ALL, 5)
+
         self.SetSizer(hbox)
 
         #panel.EnableScrolling(True,True)
@@ -411,33 +411,8 @@ class TabOne(wx.Panel):
         image = image.Scale(320, 170, wx.IMAGE_QUALITY_HIGH)
         imageBitmap = wx.StaticBitmap(self.rupPan, wx.ID_ANY, wx.BitmapFromImage(image))
         imageBitmap.SetPosition((690, 210))
-    def onOpenFile(self, event):
 
-        dlg = wx.FileDialog(
-            self, message="Choose a file",
-            defaultDir=self.currentDirectory,
-            defaultFile="",
-            wildcard=wildcard,
-            style=wx.FD_OPEN | wx.FD_MULTIPLE | wx.FD_CHANGE_DIR
-            )
-        if dlg.ShowModal() == wx.ID_OK:
-            paths = dlg.GetPaths()
-            #print "You chose the following file(s):"
-            for path in paths:
-                #print path
-                MainFrame.filePath = path
-        dlg.Destroy()
 
-    def onClose(self, event):
-        """"""
-        #self.Close()
-        frame = self.GetParent()
-        ##print "hello"
-        frame.Destroy()
-        #wx.GetApp().Exit()
-        #app = wx.App()
-        MainFrame().Show()
-        #app.MainLoop()
     def changeVal(self,data_1, data_2 , data_3, data_4, data_5, data_6):
         data1_label.SetLabel(str(data_1))
         data2_label.SetLabel(str(data_2))
@@ -445,18 +420,16 @@ class TabOne(wx.Panel):
         data4_label.SetLabel(str(data_4))
         data5_label.SetLabel(str(data_5))
         data6_label.SetLabel(str(data_6))
-    def onCalculate(self,e,lab):
+
+    def onCalculate(self,e):
         MySplash = MySplashScreen()
         MySplash.Show()
-
-
         BGB = [0] * 1801
         SedD = [0] * 1801
         lbgb = [0] * 1801
         dzdt = [0] * 1801
         MSL = [0] * 1801
         inorg = [0] * 601
-
         MHW = [0] * 1801
         bio = [0] * 1801
         OMmat = [0] * 1801
@@ -464,7 +437,6 @@ class TabOne(wx.Panel):
         marshelev = [0] * 1801
         D = [0] * 1801
         T = [0] * 1801
-
         decay = [0] * 1801
         SOM = [0] * 1801
         cquest = [0] * 601
@@ -510,7 +482,7 @@ class TabOne(wx.Panel):
         w, h = 26, 1000
         data_list = [["" for x in range(w)] for y in range(h)]
         comp_list = [["" for x in range(w)] for y in range(h)]
-        rootdist_list = [["" for x in range(20)] for y in range(200)]
+        rootdist_list = [["" for x in range(10)] for y in range(10)]
         sheet12_list = [["" for x in range(50)] for y in range(550)]
         sheet10_list = [["" for x in range(1000)] for y in range(1000)]
         num_output_list = [["" for x in range(2000)] for y in range(2000)]
@@ -1606,10 +1578,7 @@ class TabOne(wx.Panel):
         plt.savefig(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'sixth.png'),facecolor = '#edeeff')
 
         plt.close()
-        title_lbl = wx.StaticText(self.rupPan, -1, pos=(370, 10),size=(500,10))
-        title_font = wx.Font(14, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
-        title_lbl.SetFont(title_font)
-        title_lbl.SetLabel(lab)
+
         self.changeVal(data_1, data_2 , data_3, data_4, data_5, data_6)
         self.drawImages()
     def onRadioButton(self, e):
@@ -1634,7 +1603,7 @@ class TabOne(wx.Panel):
             data_list = []
 
             myGrid.ClearGrid()
-            abcd(self)
+            set_columnNames_inGrid(self)
             data_list = [["" for x in range(w)] for y in range(h)]
 
             ind=ind_1=ind_2=ind_3=0
@@ -1705,7 +1674,7 @@ class TabOne(wx.Panel):
             data_list = []
 
             myGrid.ClearGrid()
-            abcd(self)
+            set_columnNames_inGrid(self)
             data_list = [["" for x in range(w)] for y in range(h)]
 
             ind = 0
@@ -1780,7 +1749,7 @@ class TabOne(wx.Panel):
             w, h = 8, 51
 
             myGrid.ClearGrid()
-            abcd(self)
+            set_columnNames_inGrid(self)
             data_list = [["" for x in range(w)] for y in range(h)]
 
             ind = ind_1 = ind_2 = ind_3 = 0
@@ -1847,7 +1816,7 @@ class TabOne(wx.Panel):
             data_list = []
 
             myGrid.ClearGrid()
-            abcd(self)
+            set_columnNames_inGrid(self)
             data_list = [["" for x in range(w)] for y in range(h)]
 
             ind = ind_1 = ind_2 = ind_3 = 0
@@ -1912,7 +1881,7 @@ class TabOne(wx.Panel):
             data_list = []
 
             myGrid.ClearGrid()
-            abcd(self)
+            set_columnNames_inGrid(self)
             data_list = [["" for x in range(w)] for y in range(h)]
 
             ind = ind_1 = ind_2 = ind_3 = 0
@@ -1954,7 +1923,7 @@ class TabOne(wx.Panel):
         if lab == 'Other Estuary':
 
             myGrid.ClearGrid()
-            abcd(self)
+            set_columnNames_inGrid(self)
             phy_sea_level_forecast.SetLabel("100")
             phy_sea_level_start.SetLabel("0")
             phy_20th.SetLabel("0.2")
@@ -1984,23 +1953,29 @@ class TabOne(wx.Panel):
             epi_repeat.SetLabel("20")
             epi_recoveryTime.SetLabel("10")
             epi_addElevation.SetLabel("10")
+        title_lbl = wx.StaticText(self.rupPan, -1, pos=(370, 10),size=(500,10))
+        title_font = wx.Font(14, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
+        title_lbl.SetFont(title_font)
+        title_lbl.SetLabel(lab)
+        self.onCalculate(e)
 
-        self.onCalculate(e,lab)
 
-class TabThree(wx.Panel):
+
+class TabThree(scrolled.ScrolledPanel):
     def __init__(self, parent):
-        wx.Panel.__init__(self, parent)
-        #Pan = wx.lib.scrolledpanel.ScrolledPanel(self)
-        #Pan.SetupScrolling()
-        #siz = wx.BoxSizer(wx.VERTICAL)
+        super(TabThree, self).__init__(parent,style = wx.SUNKEN_BORDER)
+        self.bitmap=wx.StaticBitmap(parent=self)
+        image = wx.Bitmap(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'Instructions.jpg'))
+        self.bitmap.SetBitmap(image)
+        self.imgSizer = wx.BoxSizer(wx.VERTICAL)
+        self.imgSizer.Add(self.bitmap, 1, wx.EXPAND)
+        self.SetSizer(self.imgSizer)
+        self.SetAutoLayout(1)
+        self.SetupScrolling()
+        self.Bind(wx.EVT_PAINT, self.OnPaint)
+        self.IsRectReady = False
+        self.newRectPara=[0,0,0,0]
 
-        imageFile = join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset','Instructions.jpg')
-
-        png = wx.Image(imageFile, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        wx.StaticBitmap(self, -1, png, (5, 5), (png.GetWidth(), png.GetHeight()))
-        #siz.Add(k, 1, wx.EXPAND)
-
-        #self.SetSizer(siz)
 
 
 class TabTwo(wx.Panel):
@@ -2087,7 +2062,7 @@ class TabSix(wx.Panel):
         wx.Panel.__init__(self, parent)
         global rootdistGrid
         rootdistGrid = gridlib.Grid(self)
-        rootdistGrid.CreateGrid(1000, 1000)
+        rootdistGrid.CreateGrid(10, 10)
         rootdistGrid.SetRowLabelValue(0, "RT")
         rootdistGrid.SetRowLabelValue(1, "kd")
         rootdistGrid.SetRowLabelValue(2, "Rmax")
@@ -2161,15 +2136,20 @@ class TabTen(wx.Panel):
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(sheet10Grid, 1, wx.EXPAND)
         self.SetSizer(sizer)
+class MyAPanel(wx.Panel):
+    def __init__(self, parent, id):
+        wx.Panel.__init__(self, parent, id)
+        self.SetBackgroundColour("black")
+        gif_fname = "loading.gif"
+        gif = wx.animate.GIFAnimationCtrl(self, id, gif_fname, pos=(10, 10))
+        gif.GetPlayer().UseBackgroundColour(False)
+        gif.Play()
 class MySplashScreen(wx.SplashScreen):
     """
 Create a splash screen widget.
     """
     def __init__(self, parent=None):
-
-
         aBitmap = wx.Image(name=join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset','logo.jpg')).ConvertToBitmap()
-
         splashStyle = wx.SPLASH_CENTRE_ON_SCREEN | wx.SPLASH_TIMEOUT
         splashDuration = 1000 # milliseconds
         # Call the constructor with the above arguments in exactly the
@@ -2209,7 +2189,7 @@ class MainFrame(wx.Frame):
         p = wx.Panel(self)
 
         nb = wx.Notebook(p)
-
+        #nb.SetBackgroundColour("red")
         # Create the tab windows
         tab5 = TabFive(nb)
         tab4 = TabFour(nb)
@@ -2232,42 +2212,20 @@ class MainFrame(wx.Frame):
         nb.AddPage(tab9, "Sheet12")
         nb.AddPage(tab10, "Sheet15")
         nb.AddPage(tab5, "IO_data")
-
-
-
         # Set noteboook in a sizer to create the layout
         sizer = wx.BoxSizer()
         sizer.Add(nb, 1, wx.EXPAND)
-
-#        wx.Panel.__init__(self, parent, -1)
-
-        #sizer = wx.FlexGridSizer(2,3,5,5)
-
-        '''for name in GIFNames:
-            ani = wx.animate.Animation(name)
-            ctrl = wx.animate.AnimationCtrl(self, -1, ani)
-            ctrl.SetUseWindowBackgroundColour()
-            ctrl.Play()
-
-            sizer.AddF(ctrl, wx.SizerFlags().Border(wx.ALL, 10))
-
-        border = wx.BoxSizer()
-        border.AddF(sizer, wx.SizerFlags(1).Expand().Border(wx.ALL, 20))
-        self.SetSizer(border)'''
-
         p.SetSizer(sizer)
         _icon = wx.Icon(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'icon.ico'), wx.BITMAP_TYPE_ICO)
         self.SetIcon(_icon)
 
 def show_splash():
     # create, show and return the splash screen
-
     bitmap = wx.Bitmap(join(os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))), 'asset', 'logo.jpg'))
-
     splash = wx.SplashScreen(bitmap, wx.SPLASH_CENTRE_ON_SCREEN|wx.SPLASH_NO_TIMEOUT, 0, None, -1)
     splash.Show()
     return splash
-def abcd(self):
+def set_columnNames_inGrid(self):
         myGrid.SetCellValue(0, 0, "D (cm)")
         myGrid.SetCellValue(0, 1, "LOI (%)")
         myGrid.SetCellValue(0, 2, "year")
